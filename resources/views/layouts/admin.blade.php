@@ -156,7 +156,7 @@
 
                 <li id="liEnrollment">
                   <a href="{{url('/admin/estudiantes-registrados')}}">
-                    <i class="fa fa-child"></i> Estudiantes registrados
+                    <i class="fa fa-child"></i> Estudiantes
                   </a>
                 </li>
 

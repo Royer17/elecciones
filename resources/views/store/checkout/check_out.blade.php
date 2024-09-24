@@ -5,12 +5,12 @@
 
     <div class="container cont_pad">
       <a href="{{ url('/') }}">
-          <h3 class="text-uppercase font-bold">Mesa de Partes Virtual - Trámite Documentario</h3 class="text-uppercase font-bold">
+          <h3 class="text-uppercase font-bold">Primera elección municipal escolar</h3 class="text-uppercase font-bold">
       </a>
 
         <div class="card shadow-lg bg-white mt-4">
             <div class="form-container">
-                <div class="card-header">Consultar Trámite Virtual</div>
+                <div class="card-header">Sistema de votación</div>
                 <div class="card-body">
                      <div id="form_ct" class="container small mt-3" style="" onkeydown="return event.key != 'Enter';">
                         <form id="search-form" class="needs-validation">
@@ -45,12 +45,12 @@
                             --}}
 
                             <div class="form-group row align-items-center">
-                                <label for="cud_user_field" class="text_input col-lg-3 col-md-4 col-sm-6 col-12 mb-1">Nro. de Hoja de Ruta:</label>
+                                <label for="cud_user_field" class="text_input col-lg-3 col-md-4 col-sm-6 col-12 mb-1">Ingresa tu código:</label>
                                 <input type="text" class="form-control form-control-sm col-lg-4 col-md-8 col-sm-6 col-12 text-uppercase mb-1" id="cud_user_field" placeholder="Ej. 20220000010" name="identity_document" value="" min="0">
                             </div>
                             <div class="form-group row align-items-center">
                                 <label for="cud_user_field" class="text_input col-lg-3 col-md-4 col-sm-6 col-12 mb-1">DNI:</label>
-                                <input type="text" class="form-control form-control-sm col-lg-4 col-md-8 col-sm-6 col-12 text-uppercase mb-1" placeholder="DNI O RUC DEL REMITENTE DE LA SOLICITUD" name="document">
+                                <input type="text" class="form-control form-control-sm col-lg-4 col-md-8 col-sm-6 col-12 text-uppercase mb-1" placeholder="########" name="document">
                                 {{--
                                 <select class="form-control form-control-sm col col-lg-4 col-md-8 col-sm-6 col-6" name="year">
                                 </select>
@@ -87,7 +87,7 @@
 
                                 <div class="col-6">
                                         <button id="consultar_bt" type="button" class="btn btn-primary">
-                                        Consultar
+                                        Votar
                                     </button>
                                 </div>
 

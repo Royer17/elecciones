@@ -11,7 +11,7 @@
 <div class="row">
   <input type="hidden" name="parent_office_id" value="{{ $current_office_id }}">
   <input type="hidden" name="year" value="{{ $year }}">
-  <div class="col-md-6">
+  <div class="col">
     <div class="card">
       <div class="card-header text-white bg-dark"><h5>Datos del estudiante</h5>
       </div>
@@ -131,7 +131,7 @@
 
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 d-none">
     <div class="card">
       <div class="card-header text-white bg-dark"><h5>Conceptos de pago {{ $year }}</h5></div>
       <div class="card-body bg-light">

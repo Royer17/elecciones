@@ -9,7 +9,7 @@
 	@endif
 
 	<div class="col-md-12">
-		<h3 class="font-bold">Estudiantes registrados <span class="text-uppercase">{{ $status_searched }}</span></h3>
+		<h3 class="font-bold">Estudiantes registrados <a href="/admin/registrar-estudiante" class="btn btn-primary btn-sm">Nuevo</a></h3>
 		<div id="filters_accordion">
 			<div class="card">
 		    <div class="card-header py-1">
