@@ -16,6 +16,11 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller {
 
+	public function view_votacion()
+	{
+		
+	}
+
 	public function index() {
 		/*$categories = Categoria::with(['products_actived' => function ($query) {
 			 		$query->select(['idarticulo as id', 'nombre as name', 'slug', 'price', 'idcategoria', 'imagen']);

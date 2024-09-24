@@ -52,7 +52,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand title_login" href="{{ url('/') }}">
-                    Sistema de APAFA
+                    Sistema de Votación
                 </a>
             </div>
 

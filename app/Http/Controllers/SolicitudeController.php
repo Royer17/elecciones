@@ -5,12 +5,14 @@ namespace sisVentas\Http\Controllers;
 use Auth;
 use Carbon\Carbon;
 use DB;
+use Datatables;
 use Excel;
 use Fpdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use sisVentas\Candidate;
 use sisVentas\Categoria;
 use sisVentas\Company;
 use sisVentas\DetailOrder;
@@ -26,11 +28,110 @@ use sisVentas\OrderOrder;
 use sisVentas\Payment;
 use sisVentas\Tupa;
 use sisVentas\User;
-use Datatables;
 
 class SolicitudeController extends Controller {
 	public function __construct() {
 		$this->middleware('auth');
+	}
+
+	public function show_view_candidates(Request $request)
+	{
+		if ($request) {
+
+			$candidates = Candidate::latest();
+
+			return view('almacen.solicitude.candidates', ["candidates" => $candidates->paginate(10), "searchText" => "", 'offices' => [], 'document_statuses' => [], 'document_status' => "", 'admin' => true, 'start_date' => "", 'end_date' => "", 'status_searched' => ""]);
+
+
+			// $start_date = "";
+
+			// if ($request->has('inicio')) {
+			// 	$start_date = Carbon::createFromFormat('d/m/Y', $request->inicio);
+			// }
+
+			// $end_date = "";
+
+			// if ($request->has('fin')) {
+			// 	$end_date = Carbon::createFromFormat('d/m/Y', $request->fin);
+			// }
+
+			$user = User::with('entity')->find(Auth::user()->id);
+			$entity = Entity::find($user->entity_id);
+
+			$office_id = $user->entity->office_id;
+
+			$offices = Office::where('id', '!=', $office_id)
+				->get();
+
+			$text = trim($request->get('searchText'));
+			$document_status = 1;
+
+			$status_searched = $request->status;
+
+			$orders_status_arr = [
+				'activos' => 1,
+				'anulados' => 2,
+				'retirados' => 3,
+			];
+
+			$orders = DB::table('orders')
+				->orderBy('orders.id', 'desc')
+				//->join('details_order', 'orders.id', '=', 'details_order.order_id')
+				//->join('document_types', 'orders.document_type_id', '=', 'document_types.id')
+				->join('entities', 'orders.entity_id', '=', 'entities.id')
+				//->leftJoin('offices', 'details_order.office_id', '=', 'offices.id')
+				//->join('document_statuses', 'orders.status', '=', 'document_statuses.id')
+				//->leftJoin('orders as parent_order', 'orders.parent_order_id', '=', 'parent_order.id')
+				//->leftJoin('offices as office_parent', 'parent_order.office_id', '=', 'office_parent.id')
+				->where('orders.deleted_at', null);
+				//->where('orders.multiple', 0);
+				// ->whereDate('orders.created_at', '>=', $start_date->format('Y-m-d'))
+				// ->whereDate('orders.created_at', '<=', $end_date->format('Y-m-d'));
+				if ($request->has('inicio')) {
+					$orders = $orders->whereDate('orders.created_at', '>=', $start_date->format('Y-m-d'))
+						->whereDate('orders.created_at', '<=', $end_date->format('Y-m-d'));
+				}
+
+				if ($text) {
+					$orders = $orders->where(function ($query) use($text) {
+	           			$query->where('entities.identity_document', 'LIKE', "%$text%")
+	           				->orWhere('entities.name', 'LIKE', "%$text%")
+	           				->orWhere('entities.paternal_surname', 'LIKE', "%$text%")
+	           				->orWhere('entities.maternal_surname', 'LIKE', "%$text%");
+	                		//->orWhere('entities.identity_document', 'LIKE', "%$text%");
+	       			});
+				}
+
+				if ($request->status) {
+					$status_id = $orders_status_arr[$request->status];
+					$orders = $orders->where('orders.status', $status_id);
+				}
+
+			$orders = $orders->select(['orders.id', 'orders.subject as subject', 'entities.name', 'entities.paternal_surname', 'entities.maternal_surname', 'entities.identity_document', 'orders.status as status', 'orders.created_at', 'orders.internal_code', 'orders.tupa_id', 'orders.order_type_id', 'entities.cellphone', 'entities.email', 'entities.address', 'orders.code']);
+				// ->paginate(20);
+
+			$document_statuses = DocumentState::all();
+
+			$admin = false;
+
+			//$orders = $orders->where('orders.office_id_origen', $office_id)
+				//->where('details_order.office_id_origen', $office_id);
+
+			if ($user->role_id == 2) {
+				// admin
+				return view('almacen.solicitude.candidates', ["orders" => $orders->paginate(10), "searchText" => $text, 'offices' => $offices, 'document_statuses' => $document_statuses, 'document_status' => $document_status, 'admin' => true, 'start_date' => $start_date ? $start_date->format('d/m/Y') : "", 'end_date' => $end_date ? $end_date->format('d/m/Y') : "", 'status_searched' => $status_searched]);
+
+			}
+
+			return view('almacen.solicitude.candidates', ["orders" => $orders->paginate(10), "searchText" => $text, 'offices' => $offices, 'document_statuses' => $document_statuses, 'document_status' => $document_status, 'admin' => false, 'start_date' => $start_date ? $start_date->format('d/m/Y') : "", 'end_date' => $end_date ? $end_date->format('d/m/Y') : "", 'status_searched' => $status_searched]);
+		}
+
+	}
+
+	public function show_view_results()
+	{
+		$company = Company::first();
+		return view('results', compact('company'));
 	}
 
 	public function get_detail($id)

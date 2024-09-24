@@ -142,6 +142,12 @@
                   </a>
                 </li> -->
                 
+                <li id="liResults">
+                  <a href="{{url('/admin/resultados')}}">
+                    <i class="fa fa-bar-chart"></i> Resultados
+                  </a>
+                </li>
+
                 <li id="liRegisterStudent">
                   <a href="{{url('/admin/registrar-estudiante')}}">
                     <i class="fa fa-building"></i> Registrar estudiante
@@ -150,7 +156,13 @@
 
                 <li id="liEnrollment">
                   <a href="{{url('/admin/estudiantes-registrados')}}">
-                    <i class="fa fa-building"></i> Estudiantes registrados
+                    <i class="fa fa-child"></i> Estudiantes registrados
+                  </a>
+                </li>
+
+                <li id="liCandidates">
+                  <a href="{{url('/admin/candidatos')}}">
+                    <i class="fa fa-users"></i> Candidatos
                   </a>
                 </li>
 
@@ -254,7 +266,7 @@
             <div class="col-md-12">
               <div class="box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Sistema de APAFA</h3>
+                  <h3 class="box-title">Sistema de Votación</h3>
                   <div class="box-tools pull-right">
                     <!-- <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->

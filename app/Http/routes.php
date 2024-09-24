@@ -20,6 +20,11 @@ Route::group(['namespace' => 'Landing'], function () {
 	//Route::get('/', 'HomeController@index');
 	//Route::get('/testingqr', 'HomeController@qr_view');
 
+	// VOTACION SYSTEM-------------------------------------------
+	Route::get('/votacion', 'HomeController@view_order');
+	Route::get('/cartilla', 'HomeController@view_requirements');
+	//------------------------------------------------------------
+
 	Route::get('/productos', 'HomeController@view_products');
 	Route::get('/producto/{slug}', 'HomeController@view_product_profile');
 
@@ -134,6 +139,11 @@ Route::put('/admin/solicitude/{id}', 'SolicitudeController@update');
 
 Route::resource('/admin/lista-de-fichas', 'SolicitudeController@my_solicitude_sent_view');
 Route::get('/admin/estudiantes-registrados', 'SolicitudeController@students_registered_view');
+
+Route::get('/admin/resultados', 'SolicitudeController@show_view_results');
+
+Route::get('/admin/candidatos', 'SolicitudeController@show_view_candidates');
+
 Route::get('/admin/crear-solicitud', 'SolicitudeController@create_solicitude');
 Route::get('/admin/registrar-estudiante', 'SolicitudeController@register_student_view');
 Route::get('/admin/ficha-de-matricula', 'SolicitudeController@enrollment_data_view');
