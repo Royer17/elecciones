@@ -1,0 +1,117 @@
+/* Clases nuevas */
+.shop-border {
+  border: 1px solid #01c5a7;
+  border-radius: 5px;
+  background-color: #01c5a7;
+}
+
+.promotion-border {
+  border: 1px solid #ff6600;
+  border-radius: 20px;
+}
+
+.text-white{
+  color: #fff;
+}
+
+.btn-shop1{
+  background-color: #ff6600;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.btn-shop1:hover{
+  background-color: #b34700;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.btn-shop2{
+  background-color: #ffa700;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.btn-shop2:hover{
+  background-color: #c7870b;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.btn-nav1 {
+  background-color: #01c5a7!important;
+  padding: 10px 0!important;
+  color: #fff!important;
+  border-radius: 30px!important;
+  margin-bottom: 10px;
+}
+.btn-nav1:hover {
+  background-color: #079a84!important;
+  padding: 10px 0!important;
+  color: #fff!important;
+  border-radius: 30px!important;
+  margin-bottom: 10px;
+}
+.brand-nav.active > a.btn-nav1 {
+  background-color: #4c4c4c!important;
+    padding: 10px 0!important;
+    color: #f3f3f3!important;
+    border-radius: 30px!important;
+    margin-bottom: 10px;
+}
+
+.btn-black{
+  background-color: #000;
+  color: #fff;
+  font-weight: bold;
+}
+.btn-black:hover{
+  background-color: #292929;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn-coupons {
+  background-color: #01c5a7!important;
+  color: #fff;
+  border-radius: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 13px;
+}
+.btn-coupons:hover {
+  background-color: #b34700;
+  color: #fff;
+  border-radius: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 13px;
+}
+
+/* Responsivo */
+
+.content-margin {margin: 0px 150px;}
+@media only screen and (max-width: 1000px) {
+  .content-margin {margin: 0px 10px;}
+}
+
+@media (min-width: 769px){
+  .nav-view {display: none;}
+}
+@media (max-width: 767px){
+  .nav-none {display: none;}
+}
+
+@media (min-width: 992px){
+  .slider-none {display: none;}
+}
+@media (max-width: 991px){
+  .slider-view {display: none;}
+}
