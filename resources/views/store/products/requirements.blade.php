@@ -5,99 +5,74 @@
     <div class="card-body">
       <div class="px-md-5 py-4">
         
-        <h2 class="text-center font-bold mb-4">Requisitos y Formatos</h2>
-        <div class="alert alert-primary text-center">
-          <i class="fa fa-exclamation-circle mr-2"></i>A continuación se listan todos los procesos disponibles en la mesa de partes virtual y se detallan sus requisitos y formatos de formularios para la entrega de documentos.
-        </div>
-        <div class="row align-items-center pt-4">
-          <div class="col-auto pr-0 font-bold">Buscar Procedimiento:</div>
-          <div class="col">
-            <select class="form-control select_2" id="tupa_list">
-              <option value="">Seleccione</option>
-              @foreach($all_tupa as $t)
-                @if($t->id == $identifier)
-                  <option value="{{ $t->id }}" selected>{{ $t->title }}</option>
-                @else
-                  <option value="{{ $t->id }}">{{ $t->title }}</option>
-                @endif
-              @endforeach
-            </select>
-          </div>
-        </div>
+        <section class="d-flex justify-content-between mb-2">
+          <figure>
+            <img src="/img/logo.png" width="50">
+          </figure>
+          <article>
+            <h2 class="text-center text-uppercase font-bold">Alcaldes y regidores</h2>
+            <h4 class="text-center text-uppercase">Cabrera Gonzales, Jhonatan Nataniel</h4>
+            <h5 class="text-center text-uppercase">Cédula Nro: 994594595942, Grado: 1ro D</h5>    
+          </article>
+          
+          <figure>
+            <img src="/img/logo.png" width="50">
+          </figure>
+        </section>
 
-        @foreach($tupa as $key => $t)
-        <div class="table-responsive contact_info pt-4">
-          <h4 class="font-bold mb-2">{{ $t->id }}. {{ $t->title }}</h4>
-          <table class="table-bordered table-striped mb-2">
-            @foreach($t->requirements as $requirement)
-            <tr class="fila_archivo">
-              <td>{{ $requirement->name }}</td>
-              <td>
-                @if($requirement->link)
-                <a href="{{ $requirement->link }}" target="_blank" class="btn btn-info btn-sm">Descargar</a>
-                @endif
-              </td>
-            </tr>
-            @endforeach
-            {{-- 
-            <tr><td colspan="2">Procedimientos administrativos 1-5 de acuerdo a TUPA vigente</td></tr>
-            <tr><td colspan="2">Anexo I: Solicitud declaración jurada para licencia de funcionamiento</td></tr>
-            <tr class="fila_archivo">
-              <td>Requisitos para la solicitud</td>
-              <td><a href="https://repositorio.ingemmet.gob.pe/bitstream/20.500.12544/2046/1/Memoria_explicativa_Pachia_36-v_Palca_36-x.pdf" target="_blank" class="btn btn-info btn-sm">Descargar</a></td>
-            </tr>
-            --}}
-          </table>
-          <div class="contact_area py-2 px-4">
-            <b>Contacto</b>
-            <ul class="pl-4">
-              @if($t->email)
-              <li>Email: {{ $t->email }}</li>
-              @endif
+        <section>
+          <p class="text-center text-uppercase text-white bg-dark h2 p-2 font-bold mb-0">Primera elección municipal escolar</p>
+          <p class="text-center text-uppercase h4 text-dark p-1" style="background:#c1bdbd;">Presione el símbolo, número u opción de su preferencia</p>
+        </section>
 
-              @if($t->cellphone)
-              <li>Celular: {{ $t->cellphone }}</li>
-              @endif
+        <section>
+          
+          @foreach($candidates as $candidate)
+          <article class="d-flex justify-content-between border align-items-center px-4 py-2 card-candidate mb-2" style="background: #d6e6f5;">
+            <p class="text-uppercase">{{ $candidate->lastname }} {{ $candidate->firstname }}</p>
+            <div>
+              <img src="{{ $candidate->photo }}" width="70">
+              <img src="{{ $candidate->logo }}" width="70">
 
-              @if($t->phone)
-              <li>Teléfono: {{ $t->phone }}</li>
-              @endif
-            </ul>
-          </div>
-        </div>
-        @endforeach
+            </div>
+          </article>
+          @endforeach
+          {{-- 
+          <article class="d-flex justify-content-between border align-items-center px-4 py-2 card-candidate mb-2" style="background: #d6e6f5;">
+            <p class="text-uppercase">Donald Trump</p>
+            <div>
+              <img src="/img/user_icon.png" width="70">
+              <img src="/img/user_icon.png" width="70">
 
-        <div>
-          {{$tupa->render()}}
-        </div>
-        {{--
-        <div class="table-responsive contact_info pt-4">
-          <h4 class="font-bold mb-2">2. Anuncio publicitario simple</h4>
-          <table class="table-bordered table-striped mb-2">
-            <tr><td colspan="2">Prodecimiento administrativo 18, de acuerdo a TUPA vigente</td></tr>
-            <tr><td colspan="2">Formulario N° 7: Solicitud de anuncio publicitario simple</td></tr>
-            <tr class="fila_archivo">
-              <td>Requisitos para la solicitud</td>
-              <td><a href="https://repositorio.ingemmet.gob.pe/bitstream/20.500.12544/2046/1/Memoria_explicativa_Pachia_36-v_Palca_36-x.pdf" target="_blank" class="btn btn-info btn-sm">Descargar</a></td>
-            </tr>
-            <tr><td colspan="2">Modelo de anuncio publicitario</td></tr>
-            <tr><td colspan="2">Modelo de llenado de anuncio publicitario</td></tr>
-          </table>
-          <div class="contact_area py-2 px-4">
-            <b>Contacto</b>
-            <ul class="pl-4">
-              <li>Email: administrador@sistema.pe</li>
-              <li>Celular: 922 727 092</li>
-              <li>Teléfono: 200 2536 Anexo 1451 (Solo para consultar el estado del expediente)</li>
-            </ul>
-          </div>
-        </div>
-        --}}
+            </div>
+          </article>
+          <article class="d-flex justify-content-between border align-items-center px-4 py-2 card-candidate mb-2" style="background: #d6e6f5;">
+            <p class="text-uppercase">Donald Trump</p>
+            <div>
+              <img src="/img/user_icon.png" width="70">
+              <img src="/img/user_icon.png" width="70">
 
+            </div>
+          </article>
+          --}}
+        </section>
+        
+        <section>
+          <button class="btn btn-info btn-lg pull-right">Enviar</button>
+        </section>
       </div>
     </div>
   </div>
 </div>
+@stop
+
+@section('plugins-css')
+  <style type="text/css">
+      .card-candidate:hover {
+        background: #c83e3a !important;
+        color: white !important;
+      }
+  </style>
 @stop
 
 @section('plugins-js')

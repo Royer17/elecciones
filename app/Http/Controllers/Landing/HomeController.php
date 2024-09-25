@@ -3,8 +3,10 @@
 namespace sisVentas\Http\Controllers\Landing;
 
 use DB;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use sisVentas\Articulo;
+use sisVentas\Candidate;
 use sisVentas\Categoria;
 use sisVentas\Company;
 use sisVentas\DocumentState;
@@ -12,7 +14,6 @@ use sisVentas\DocumentType;
 use sisVentas\Entity;
 use sisVentas\Order;
 use sisVentas\Tupa;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller {
 
@@ -224,7 +225,9 @@ class HomeController extends Controller {
 				->paginate(5);
 		}
 
-		return view('store.products.requirements', compact('company', 'document_types', 'search_button', 'tupa', 'all_tupa', 'identifier'));
+		$candidates = Candidate::all();
+
+		return view('store.products.requirements', compact('company', 'document_types', 'search_button', 'tupa', 'all_tupa', 'identifier', 'candidates'));
 	}
 
 	// public function qr_view()
