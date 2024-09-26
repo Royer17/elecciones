@@ -55,3 +55,7 @@ function cleanAllChildren(element){
     element.removeChild(element.firstChild); 
   }
 }
+
+function addInputPut(form, id) {
+  form.append('<input type="hidden" name="_method" id="' + id + '" value="PUT" />');
+}

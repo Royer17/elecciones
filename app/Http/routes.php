@@ -143,6 +143,12 @@ Route::get('/admin/estudiantes-registrados', 'SolicitudeController@students_regi
 Route::get('/admin/resultados', 'SolicitudeController@show_view_results');
 
 Route::get('/admin/candidatos', 'SolicitudeController@show_view_candidates');
+Route::get('/admin/candidate/{id}', 'SolicitudeController@show_candidate');
+Route::post('/admin/candidate', 'SolicitudeController@store_candidate');
+Route::put('/admin/candidate/{id}', 'SolicitudeController@update_candidate');
+Route::delete('/admin/candidate/{id}', 'SolicitudeController@delete_candidate');
+
+
 
 Route::get('/admin/crear-solicitud', 'SolicitudeController@create_solicitude');
 Route::get('/admin/registrar-estudiante', 'SolicitudeController@register_student_view');

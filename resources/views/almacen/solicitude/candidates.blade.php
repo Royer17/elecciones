@@ -140,7 +140,7 @@
 
 					<td class="text-center">
 						@if($admin)
-						<a href="/admin/editar-registro-de-estudiante/{{ $cat->id }}" class="btn py-0 px-1" target="_blank" title="Editar" style="background-color: #87CEEB; border-color: #87CEEB;"><i class="fas fa-pencil-alt"></i></a>
+						<a href="javascript:void(0);" data-id="{{ $cat->id }}" class="btn py-0 px-1" title="Editar" style="background-color: #87CEEB; border-color: #87CEEB;" onclick="editCandidate(this)"><i class="fas fa-pencil-alt"></i></a>
 
 						<a href="/admin/reporte-de-pagos/{{ $cat->id }}" class="btn py-0 px-1" target="_blank" title="Reporte de pago" style="background-color: #87CEEB; border-color: #87CEEB;"><i class="fas fa-print"></i></a>
 						@endif
@@ -373,7 +373,7 @@ $('#modal-delete- select[name="offices"]').select2();
 </script>
 <script type="text/javascript" src="{{ URL::asset('plugins/jszip/jszip.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('plugins/xlsx/xlsx.js') }}"></script>
-<script type="text/javascript" src="/js/solicitudes.crud.js"></script>
+<script type="text/javascript" src="/js/candidates.js"></script>
 <script type="text/javascript">
 	
   var xlf = document.getElementById('file');

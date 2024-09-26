@@ -128,6 +128,71 @@ class SolicitudeController extends Controller {
 
 	}
 
+	public function show_candidate($id)
+	{
+		return Candidate::find($id);
+	}
+
+	public function store_candidate(Request $request)
+	{
+		$data = $request->except('photo', 'logo');
+
+		$candidate = new Candidate();
+		$candidate->fill($data);
+
+		if ($request->hasFile('photo')) {
+			$photo = $request->file('photo');
+			$photo_name = time().time() . '.' . $photo->getClientOriginalExtension();
+			$photo->move(public_path().'/img/candidates/', $photo_name);
+			$candidate->photo = '/img/candidates/'.$photo_name;
+		}
+
+		if ($request->hasFile('logo')) {
+			$logo = $request->file('logo');
+			$logo_name = time().time() . '.' . $logo->getClientOriginalExtension();
+			$logo->move(public_path().'/img/candidates/', $logo_name);
+			$candidate->logo = '/img/candidates/'.$logo_name;
+		}
+
+		$candidate->save();
+
+		return response()->json(['title' => 'Operación exitosa', 'message' => 'Candidato registrado correctamente'], 201);
+	}
+
+	public function update_candidate($id, Request $request)
+	{
+		$data = $request->except('photo', 'logo');
+
+		$candidate = Candidate::find($id);
+		$candidate->fill($data);
+
+		if ($request->hasFile('photo')) {
+			$photo = $request->file('photo');
+			$photo_name = time().time() . '.' . $photo->getClientOriginalExtension();
+			$photo->move(public_path().'/img/candidates/', $photo_name);
+			$candidate->photo = '/img/candidates/'.$photo_name;
+		}
+
+		if ($request->hasFile('logo')) {
+			$logo = $request->file('logo');
+			$logo_name = time().time() . '.' . $logo->getClientOriginalExtension();
+			$logo->move(public_path().'/img/candidates/', $logo_name);
+			$candidate->logo = '/img/candidates/'.$logo_name;
+		}
+
+		$candidate->save();
+
+		return response()->json(['title' => 'Operación exitosa', 'message' => 'Candidato actualizado correctamente'], 200);
+	}
+
+	public function delete_candidate($id)
+	{
+		$candidate = Candidate::find($id);
+		$candidate->delete();
+
+		return response()->json(['title' => 'Operación exitosa', 'message' => 'Candidato eliminado correctamente'], 200);
+	}
+
 	public function show_view_results()
 	{
 		$company = Company::first();
