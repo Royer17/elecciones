@@ -29,10 +29,10 @@
           
           @foreach($candidates as $candidate)
           <article class="d-flex justify-content-between border align-items-center px-4 py-2 card-candidate mb-2" style="background: #d6e6f5;">
-            <p class="text-uppercase">{{ $candidate->lastname }} {{ $candidate->firstname }}</p>
+            <p class="text-uppercase" style="pointer-events: none;">{{ $candidate->lastname }} {{ $candidate->firstname }}</p>
             <div>
-              <img src="{{ $candidate->photo }}" width="70">
-              <img src="{{ $candidate->logo }}" width="70">
+              <img src="{{ $candidate->photo }}" width="70" style="pointer-events: none;">
+              <img src="{{ $candidate->logo }}" width="70" style="pointer-events: none;">
 
             </div>
           </article>
@@ -70,6 +70,11 @@
   <style type="text/css">
       .card-candidate:hover {
         background: #c83e3a !important;
+        cursor: pointer;
+        
+      }
+
+      .card-candidate:hover p {
         color: white !important;
       }
   </style>
@@ -86,6 +91,18 @@
             location.replace(`/requisitos-formatos?identificador=${e.target.value}`);
 
         });
+
+
+      $('.card-candidate').on('click', function(e){
+        document.querySelectorAll('.card-candidate').forEach(card => {
+            card.style.background = '#d6e6f5';
+            card.querySelector('p').style.color = '#6f6f6f';
+        });
+        $(e.target).css('background', '#c83e3a');
+        $(e.target).find('p').css('color', 'white');
+      });
+
+
 
 </script>
 
