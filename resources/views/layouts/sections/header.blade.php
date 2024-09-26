@@ -42,20 +42,10 @@
 
         <li class="view_search_none">
           <div class="search-container">
-            <form action="/admin/ruta-de-solicitud" method="POST" target="_blank">
-
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <div class="input-group width_search_movil">
-                <input type="text" class="form-control" name="solicitude_id" id="searchbox" placeholder="Documento">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary styled-link" type="submit"><i class="fa fa-search"></i></button>
-                </div>
-              </div>
-              <!-- <input type="text" name="solicitude_id" id="searchbox" placeholder="Documento">
-              <button type="submit" class="styled-link">
-                <i class="fa fa-search"></i>
-              </button> -->
-            </form>
+            <!-- <a href="/votacion" class="text-white font-bold border border-white rounded p-2">Votar</a> -->
+              <button type="button" class="styled-link" onclick="window.open('/votacion', '_blank')">
+                <i class="fa fa-envelope-open">&nbsp;Votar</i>
+              </button>
           </div>
         </li>
 
@@ -84,7 +74,7 @@
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <p class="font-bold">Sistema de trámites</p>
+              <p class="font-bold">Sistema de Votación</p>
               <div class="login_option">
                 <!-- <div class="dropdown-divider"></div>
                 <a href="#">Editar Perfil</a> -->

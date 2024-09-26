@@ -14,6 +14,7 @@
                 <div class="card-body">
                      <div id="form_ct" class="container small mt-3" style="" onkeydown="return event.key != 'Enter';">
                         <form id="search-form" class="needs-validation">
+                            {{ csrf_field() }}
                             <!-- <div class="form-group row">
                                 <label for="anio_field" class=" text-right col col-lg-2 col-md-4 col-sm-6 col-6">Año:</label>
                                 <select class="form-control form-control-sm col col-lg-4 col-md-8 col-sm-6 col-6" id="anio_field" name="year">
@@ -46,11 +47,11 @@
 
                             <div class="form-group row align-items-center">
                                 <label for="cud_user_field" class="text_input col-lg-3 col-md-4 col-sm-6 col-12 mb-1">Ingresa tu código:</label>
-                                <input type="text" class="form-control form-control-sm col-lg-4 col-md-8 col-sm-6 col-12 text-uppercase mb-1" id="cud_user_field" placeholder="Ej. 20220000010" name="identity_document" value="" min="0">
+                                <input type="text" class="form-control form-control-sm col-lg-4 col-md-8 col-sm-6 col-12 text-uppercase mb-1" id="cud_user_field" placeholder="Ej. 20220000010" name="code" value="">
                             </div>
                             <div class="form-group row align-items-center">
                                 <label for="cud_user_field" class="text_input col-lg-3 col-md-4 col-sm-6 col-12 mb-1">DNI:</label>
-                                <input type="text" class="form-control form-control-sm col-lg-4 col-md-8 col-sm-6 col-12 text-uppercase mb-1" placeholder="########" name="document">
+                                <input type="text" class="form-control form-control-sm col-lg-4 col-md-8 col-sm-6 col-12 text-uppercase mb-1" placeholder="########" name="identity_document">
                                 {{--
                                 <select class="form-control form-control-sm col col-lg-4 col-md-8 col-sm-6 col-6" name="year">
                                 </select>
@@ -86,17 +87,15 @@
                                 </div>
 
                                 <div class="col-6">
-                                        <button id="consultar_bt" type="button" class="btn btn-primary">
-                                        Votar
-                                    </button>
+                                        <button id="consultar_bt" type="button" class="btn btn-primary">Ingresar</button>
                                 </div>
 
                             </div>
                         </form>
-                        <form action="/detalles-documento" method="POST" id="details-form" style="display: none;">
+                        <form action="/cartilla" method="POST" id="details-form" style="display: none;">
                             {{ csrf_field() }}
-
-                            <input type="hidden" name="order_id" id="order_id" value="">
+                            <input type="hidden" name="order_id" value="">
+                            <input type="hidden" name="entity_id" value="">
                         </form>
                     </div>
                 </div>
@@ -141,13 +140,13 @@
             $(`.error-message`).empty();
 
             if (!$(`input[name="identity_document"]`).val()) {
-                notice(`Advertencia`, `Escriba el nro. de Hoja de Ruta`, `warning`);
+                notice(`Advertencia`, `Escriba su DNI.`, `warning`);
                 unlockWindow();
                 return;
             }
 
-            if (!$(`input[name="document"]`).val()) {
-                notice(`Advertencia`, `Escriba el DNI del remitente de la solicitud.`, `warning`);
+            if (!$(`input[name="code"]`).val()) {
+                notice(`Advertencia`, `Escriba su código.`, `warning`);
                 unlockWindow();
                 return;
             }
@@ -174,7 +173,8 @@
                     processData: false,
                     success: function(e){
                         unlockWindow();
-                        $(`#order_id`).val(e.ids);
+                        document.querySelector(`#details-form input[name="order_id"]`).value = e.order_id;
+                        document.querySelector(`#details-form input[name="entity_id"]`).value = e.entity_id;
                         $(`#details-form`).submit();
 
                     },

@@ -11,8 +11,8 @@
           </figure>
           <article>
             <h2 class="text-center text-uppercase font-bold">Alcaldes y regidores</h2>
-            <h4 class="text-center text-uppercase">Cabrera Gonzales, Jhonatan Nataniel</h4>
-            <h5 class="text-center text-uppercase">Cédula Nro: 994594595942, Grado: 1ro D</h5>    
+            <h4 class="text-center text-uppercase">{{ $entity->paternal_surname }} {{ $entity->maternal_surname }}, {{ $entity->name }}</h4>
+            <h5 class="text-center text-uppercase">DNI: <span class="font-bold">{{ $entity->identity_document }}</span>, Grado: <span class="font-bold">{{ $nivel }} {{ $grade }} "{{ $order->subject }}"</span> </h5>    
           </article>
           
           <figure>
@@ -21,6 +21,9 @@
         </section>
 
         <section>
+          <p class="alert alert-success h3">Usted ya ha votado</p>
+        </section>
+        <section>
           <p class="text-center text-uppercase text-white bg-dark h2 p-2 font-bold mb-0">Primera elección municipal escolar</p>
           <p class="text-center text-uppercase h4 text-dark p-1" style="background:#c1bdbd;">Presione el símbolo, número u opción de su preferencia</p>
         </section>
@@ -28,7 +31,7 @@
         <section>
           
           @foreach($candidates as $candidate)
-          <article class="d-flex justify-content-between border align-items-center px-4 py-2 card-candidate mb-2" style="background: #d6e6f5;">
+          <article data-index="{{ $candidate->id }}" class="d-flex justify-content-between border align-items-center px-4 py-2 card-candidate mb-2" style="background: #d6e6f5;">
             <p class="text-uppercase" style="pointer-events: none;">{{ $candidate->lastname }} {{ $candidate->firstname }}</p>
             <div>
               <img src="{{ $candidate->photo }}" width="70" style="pointer-events: none;">
@@ -58,7 +61,12 @@
         </section>
         
         <section>
-          <button class="btn btn-info btn-lg pull-right">Enviar</button>
+          <form id="form-vote">
+            {{ csrf_field() }}
+            <input type="hidden" name="index" value="{{ $order->id }}">
+          </form>
+
+          <button type="button" class="btn btn-info btn-lg pull-right" id="send-vote-btn">Enviar</button>
         </section>
       </div>
     </div>
@@ -85,22 +93,59 @@
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript">
 
-    $(`#tupa_list`)
-        .on('change', function(e){
-            //lockWindow();
-            location.replace(`/requisitos-formatos?identificador=${e.target.value}`);
-
-        });
-
+      let candidate_id = null;
 
       $('.card-candidate').on('click', function(e){
         document.querySelectorAll('.card-candidate').forEach(card => {
             card.style.background = '#d6e6f5';
             card.querySelector('p').style.color = '#6f6f6f';
         });
+
+        candidate_id = $(e.target).data('index');
+        console.log(candidate_id);
         $(e.target).css('background', '#c83e3a');
         $(e.target).find('p').css('color', 'white');
       });
+
+      document.querySelector(`#send-vote-btn`)
+        .addEventListener('click', () => {
+            lockWindow();
+            $(`.error-message`).empty();
+
+            if (!candidate_id) {
+                notice(`Advertencia`, `Seleccione un candidato.`, `warning`);
+                unlockWindow();
+                return;
+            }
+
+            let _formData = new FormData($(`#form-vote`)[0]);
+            _formData.append('candidate_id', candidate_id);
+            //_formData.append('recaptcha', grecaptcha.getResponse());
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name=_token]').val()
+                    }
+                });
+                $.ajax({
+                    url : `/send-vote`,
+                    type: 'POST',
+                    data: _formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(e){
+                        unlockWindow();
+                        notice(`${e.title}`, `${e.message}`, `success`);
+
+                    },
+                    error:function(jqXHR, textStatus, errorThrown)
+                    {
+                        notice(`${jqXHR.responseJSON.title}`, `${jqXHR.responseJSON.message}`, `warning`);
+                        unlockWindow();
+                    }
+                });
+
+        });
 
 
 

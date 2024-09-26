@@ -14,6 +14,7 @@ use sisVentas\DocumentType;
 use sisVentas\Entity;
 use sisVentas\Order;
 use sisVentas\Tupa;
+use sisVentas\Vote;
 
 class HomeController extends Controller {
 
@@ -144,6 +145,24 @@ class HomeController extends Controller {
 		return view('store.checkout.check_out', compact('categories', 'years', 'search_button'));
 	}
 
+	public function validate_student(Request $request) {
+		$code = $request->code;
+		$identity_document = $request->identity_document;
+
+		$student = Entity::where('identity_document', $identity_document)
+			->first();
+
+		$order = Order::where('code', $code)
+			->where('entity_id', $student->id)
+			->first();
+
+		if ($order) {
+			return redirect('/cartilla')->with('code', $code);
+		}
+
+		return "Estudiante no encontrado";
+	}
+
 	public function view_about_us() {
 
 		$categories = Categoria::whereCondicion(1)
@@ -205,6 +224,18 @@ class HomeController extends Controller {
 
 	public function view_requirements(Request $request) {
 
+		$order_id = $request->order_id;
+		$entity_id = $request->entity_id;
+
+		$entity = Entity::find($entity_id);
+		$order = Order::find($order_id);
+
+		$nivel_arr_values = array(1 => "PRIMARIA", 2 => "SECUNDARIA");
+		$grade_arr_values = array(1 => "1ro", 2 => "2do", 3 => "3ro", 4 => "4to", 5 => "5to", 6 => "6to");
+
+		$nivel = $nivel_arr_values[$order->order_type_id];
+		$grade = $grade_arr_values[$order->tupa_id];
+
 		$identifier = $request->identificador;
 
 		$company = Company::first();
@@ -227,7 +258,40 @@ class HomeController extends Controller {
 
 		$candidates = Candidate::all();
 
-		return view('store.products.requirements', compact('company', 'document_types', 'search_button', 'tupa', 'all_tupa', 'identifier', 'candidates'));
+		return view('store.products.requirements', compact('company', 'document_types', 'search_button', 'tupa', 'all_tupa', 'identifier', 'candidates', 'entity', 'order', 'nivel', 'grade'));
+	}
+
+	public function send_vote(Request $request) {
+		$data = $request->all();
+
+		if(!$data['index']) {
+			return response()->json(['success' => false, 'title' => 'Error', 'message' => 'Estudiante no encontrado.'], 400);
+		}
+
+		if(!$data['candidate_id']) {
+			return response()->json(['success' => false, 'title' => 'Error', 'message' => 'Candidato no seleccionado.'], 400);
+		}
+
+		$order = Order::find($data['index']);
+
+		if($order->voted) {
+			return response()->json(['success' => false, 'title' => 'Error', 'message' => 'Estudiante ya ha votado.'], 400);
+		}
+
+		$new_vote = new Vote();
+		$new_vote->nivel = $order->order_type_id;
+		$new_vote->grade = $order->tupa_id;
+		$new_vote->section = $order->subject;
+		$new_vote->category_candidate_id = 1;
+		$new_vote->candidate_id = $data['candidate_id'];
+		$new_vote->save();
+
+		$order->voted = 1;
+		$order->save();
+
+		return response()->json(['success' => true, 'title' => 'Éxito', 'message' => 'Voto enviado correctamente']);
+
+
 	}
 
 	// public function qr_view()

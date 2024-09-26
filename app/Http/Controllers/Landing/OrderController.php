@@ -1513,9 +1513,22 @@ class OrderController extends Controller {
 	}
 
 	public function search(Request $request) {
+			$code = $request->code;
+			$identity_document = $request->identity_document;
 
-				$identity_document = $request->identity_document;
-				$document = $request->document;
+			$student = Entity::where('identity_document', $identity_document)
+				->first();
+
+			$order = Order::where('code', $code)
+				->where('entity_id', $student->id)
+				->first();
+
+			if ($order) {
+				return response()->json(['order_id' => $order->id, 'entity_id' => $student->id], 200);
+				//return redirect('/cartilla')->with('code', $code);
+			}
+
+			return response()->json(['title' => 'Advertencia', 'message' => 'Estudiante no encontrado.'], 400);
 
 				$orders = DB::table('orders')
 					->join('entities', 'orders.entity_id', '=', 'entities.id')
