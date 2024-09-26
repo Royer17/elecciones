@@ -225,10 +225,16 @@ class SolicitudeController extends Controller {
 					->where('candidate_id', $candidate->id)
 					->count();
 
+				$percentage = 0;
+
+				if($total_students_voted > 0) {
+					$percentage = ($candidate_results / $total_students_voted) * 100;
+				}
+
 				$candidates_results[] = [
 					'candidate' => $candidate->firstname.' '.$candidate->lastname,
 					'votes' => $candidate_results,
-					'percentage' => ($candidate_results / $total_students_voted) * 100
+					'percentage' => $percentage,
 				];
 
 			}
