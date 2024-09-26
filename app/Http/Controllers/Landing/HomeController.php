@@ -256,7 +256,7 @@ class HomeController extends Controller {
 				->paginate(5);
 		}
 
-		$candidates = Candidate::all();
+		$candidates = Candidate::where('position', 'Alcalde')->get();
 
 		return view('store.products.requirements', compact('company', 'document_types', 'search_button', 'tupa', 'all_tupa', 'identifier', 'candidates', 'entity', 'order', 'nivel', 'grade'));
 	}

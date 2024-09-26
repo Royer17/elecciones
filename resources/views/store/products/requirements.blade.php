@@ -19,10 +19,11 @@
             <img src="{{ $company->logo }}" width="50">
           </figure>
         </section>
-
+        @if($order->voted)
         <section>
           <p class="alert alert-success h3">Usted ya ha votado</p>
         </section>
+        @endif
         <section>
           <p class="text-center text-uppercase text-white bg-dark h2 p-2 font-bold mb-0">Primera elección municipal escolar</p>
           <p class="text-center text-uppercase h4 text-dark p-1" style="background:#c1bdbd;">Presione el símbolo, número u opción de su preferencia</p>

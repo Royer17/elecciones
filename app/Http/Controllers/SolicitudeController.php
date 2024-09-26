@@ -196,7 +196,47 @@ class SolicitudeController extends Controller {
 	public function show_view_results()
 	{
 		$company = Company::first();
-		return view('results', compact('company'));
+
+		$orders = DB::table('orders')
+			->where('deleted_at', null)
+			->get();
+
+		$total_students = count($orders);
+
+		$students_voted = DB::table('orders')
+			->where('deleted_at', null)
+			->where('voted', 1)
+			->get();
+
+		$total_students_voted = count($students_voted);
+
+		$category_candidates = ['Alcalde'];
+
+		$candidates_results = [];
+		
+		foreach ($category_candidates as $category) {
+			$candidates = DB::table('candidates')
+				->where('position', $category)
+				->get();
+
+			foreach ($candidates as $candidate) {
+				$candidate_results = DB::table('votes')
+					->where('category_candidate_id', 1)
+					->where('candidate_id', $candidate->id)
+					->count();
+
+				$candidates_results[] = [
+					'candidate' => $candidate->firstname.' '.$candidate->lastname,
+					'votes' => $candidate_results,
+					'percentage' => ($candidate_results / $total_students_voted) * 100
+				];
+
+			}
+		}
+
+		//$orders_voted = Order::where('voted', 1)->count();
+		return view('results', compact('company', 'total_students', 'total_students_voted', 'candidates_results'));
+
 	}
 
 	public function get_detail($id)

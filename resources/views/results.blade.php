@@ -1,6 +1,31 @@
 @extends ('layouts.admin')
 @section ('contenido')
+
+    <h2>Resultados de los comicios estudiantiles</h2>
+    <hr>
+    <section>
+      <p class="h3 text-center">Alcaldía</p>
+
+      <div class="row m-3">
+        <div class="col-md-6 border">
+            <p>Total estudiantes: {{ $total_students }}</p>
+            <p>Estudiantes que votaron: {{ $total_students_voted }}</p>
+            <p>Porcentaje: {{ ($total_students_voted / $total_students) * 100 }}%</p>
+        </div>
+        @foreach ($candidates_results as $candidate)
+        <div class="col-md-6 border">
+            <p>Candidato: <b>{{ $candidate['candidate'] }}</b></p>
+            <p>Votos: {{ $candidate['votes'] }}</p>
+            <p>Porcentaje: {{ $candidate['percentage'] }}%</p>
+        </div>
+        @endforeach
+      </div>
+    </section>
+    <hr>
+
     <div class="row">
+
+
         <div class="col">
             <h3 class="font-bold">Resultados de los comicios estudiantiles</h3>
             @if (count($errors)>0)
