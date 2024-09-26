@@ -7,7 +7,7 @@
         
         <section class="d-flex justify-content-between mb-2">
           <figure>
-            <img src="/img/logo.png" width="50">
+            <img src="{{ $company->logo }}" width="50">
           </figure>
           <article>
             <h2 class="text-center text-uppercase font-bold">Alcaldes y regidores</h2>
@@ -16,7 +16,7 @@
           </article>
           
           <figure>
-            <img src="/img/logo.png" width="50">
+            <img src="{{ $company->logo }}" width="50">
           </figure>
         </section>
 

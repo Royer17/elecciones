@@ -22,11 +22,11 @@
 
                       <div class="logo_head py-md-0 py-1">
                         <!-- <img src="{{ $company->logo }}"> -->
-                        <img src="/img/logo.png" alt="">
-                        <p><b>MUNICIPALIDAD<br>DISTRITAL<br>DE PACHÍA</b></p>
+                        <img src="{{ $company->logo }}" alt="">
+                        <p><b>SISTEMA<br>DE<br>VOTACIÓN</b></p>
                       </div>
 
-                        <ul class="navbar-nav py-md-0 py-1">
+                        <ul class="navbar-nav py-md-0 py-1 d-none">
                             <li class="nav-item active">
                                 <a class="btn btn-warning font-bold" href="/busqueda-documento">Consultar</a>
                             </li>

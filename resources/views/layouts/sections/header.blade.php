@@ -3,9 +3,9 @@
   <!-- Logo -->
   <a href="/admin/registrados" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>S</b>A</span>
+    <span class="logo-mini"><b>S</b>V</span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>SisApafa</b></span>
+    <span class="logo-lg"><b>SisVotacion</b></span>
   </a>
 
   <!-- Header Navbar: style can be found in header.less -->
