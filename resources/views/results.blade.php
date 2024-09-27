@@ -5,10 +5,12 @@
     <hr>
 
     @foreach ($results as $result)
-    <section>
+    <section class="mb-5">
       <p class="h2 text-center">{{ $result['nivel_text'] }} - Alcaldía <span class="text-muted">({{ $result['total_students'] }} estudiantes)</span></p>
       <p>Estudiantes que votaron: {{ $result['total_students_voted'] }}</p>
+      <p>Estudiantes que no votaron: {{ $result['total_students'] - $result['total_students_voted'] }}</p>
       <p>Porcentaje: {{ ($result['total_students_voted'] / $result['total_students']) * 100 }}%</p>
+      
       <div class="row m-3">
         @foreach ($result['candidates_results'] as $candidate)
         <div class="col-md-6 border">
@@ -19,7 +21,11 @@
         @endforeach
       </div>
 
-
+      <div class="chart">
+        <input type="hidden" name="values" value="{{ json_encode($result['values']) }}">
+        <input type="hidden" name="labels" value="{{ json_encode($result['labels']) }}">
+        <canvas id="electionChart{{ $result['nivel'] }}" style="height:230px"></canvas>    
+      </div>
 
     </section>
 
@@ -27,39 +33,6 @@
 
     
 
-    <hr>
-
-    <div class="row">
-
-
-        <div class="col">
-            <h3 class="font-bold">Resultados de los comicios estudiantiles</h3>
-            @if (count($errors)>0)
-            <div class="alert alert-danger">
-                <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-                </ul>
-            </div>
-            @endif
-
-          <p>Gráfico resultados de votación general</p>
-          <div class="chart">
-              <canvas id="pieChart" style="height:300px"></canvas>
-          </div>  
-
-          <hr>
-          <p>Gráfico resultados de votación parcial</p>
-          <div class="chart">
-            <canvas id="salesChart" style="height:230px"></canvas>    
-          </div>
-          
-          <!-- <canvas id="barChart" style="height:230px"></canvas> -->
-
-          
-        </div>
-    </div>
 @push ('scripts')
 
 <script src="{{asset('/js/Chart.js')}}"></script>
@@ -71,9 +44,11 @@
 
     var areaChartData = {
       labels  : ['Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago'],
+      images: ['/img/logo.png', '/img/logo.png'],
       datasets: [
         {
           label               : 'Masa grasa',
+          
           fillColor           : 'rgba(63,134,203,1)',
           strokeColor         : 'rgba(63,134,203,1)',
           pointColor          : 'rgba(63,134,203,1)',
@@ -149,63 +124,34 @@ var barChartCanvas                   = document.getElementById("barChart").getCo
   // -----------------------
 
   // Get context with jQuery - using jQuery's .get() method.
-  var salesChartCanvas = $('#salesChart').get(0).getContext('2d');
+  var electionChart1Canvas = $('#electionChart1').get(0).getContext('2d');
+
+  $labels1 = JSON.parse($('#electionChart1').parent().find('input[name="labels"]').val());
+  $values1 = JSON.parse($('#electionChart1').parent().find('input[name="values"]').val());
   // This will get the first returned node in the jQuery collection.
-  var salesChart       = new Chart(salesChartCanvas);
+  var electionChart1       = new Chart(electionChart1Canvas);
 
-  var salesChartData = {
-    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  var electionChart1Data = {
+    //labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels  : $labels1,
+
     datasets: [
       {
-        label               : 'Electronics',
+        label               : 'Primaria',
         fillColor           : 'rgb(210, 214, 222)',
         strokeColor         : 'rgb(210, 214, 222)',
         pointColor          : 'rgb(210, 214, 222)',
         pointStrokeColor    : '#c1c7d1',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgb(220,220,220)',
-        data                : [65, 59, 80, 81, 56, 55, 40]
-      },
-      {
-        label               : 'Digital Goods',
-        fillColor           : 'rgba(60,141,188,0.9)',
-        strokeColor         : 'rgba(60,141,188,0.8)',
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(60,141,188,1)',
-        pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
-        data                : [28, 48, 40, 19, 86, 27, 90]
+        //data                : [65, 59, 80, 81, 56, 55, 40]
+        data                : $values1
+
       }
     ]
   };
-
-    var salesChartData2 = {
-    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label               : 'Electronics',
-        fillColor           : 'rgb(210, 214, 222)',
-        strokeColor         : 'rgb(210, 214, 222)',
-        pointColor          : 'rgb(210, 214, 222)',
-        pointStrokeColor    : '#c1c7d1',
-        pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgb(220,220,220)',
-        data                : [40, 60, 30, 81, 56, 55, 40]
-      },
-      {
-        label               : 'Digital Goods',
-        fillColor           : 'rgba(60,141,188,0.9)',
-        strokeColor         : 'rgba(60,141,188,0.8)',
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(60,141,188,1)',
-        pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
-        data                : [28, 48, 40, 19, 86, 27, 90]
-      }
-    ]
-  };
-
-  var salesChartOptions = {
+  
+  var chartOptions = {
     // Boolean - If we should show the scale at all
     showScale               : true,
     // Boolean - Whether grid lines are shown across the chart
@@ -244,8 +190,37 @@ var barChartCanvas                   = document.getElementById("barChart").getCo
     responsive              : true
   };
 
-  // Create the line chart
-  salesChart.Bar(salesChartData, salesChartOptions);
+  electionChart1.Bar(electionChart1Data, chartOptions);
+
+
+  var electionChart2Canvas = $('#electionChart2').get(0).getContext('2d');
+
+  $labels2 = JSON.parse($('#electionChart2').parent().find('input[name="labels"]').val());
+  $values2 = JSON.parse($('#electionChart2').parent().find('input[name="values"]').val());
+  // This will get the first returned node in the jQuery collection.
+  var electionChart2       = new Chart(electionChart2Canvas);
+
+  var electionChart2Data = {
+    //labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels  : $labels2,
+
+    datasets: [
+      {
+        label               : 'Secundaria',
+        fillColor           : 'rgb(210, 214, 222)',
+        strokeColor         : 'rgb(210, 214, 222)',
+        pointColor          : 'rgb(210, 214, 222)',
+        pointStrokeColor    : '#c1c7d1',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgb(220,220,220)',
+        //data                : [65, 59, 80, 81, 56, 55, 40]
+        data                : $values2
+
+      }
+    ]
+  };
+
+  electionChart2.Bar(electionChart2Data, chartOptions);
 
 
   // ---------------------------

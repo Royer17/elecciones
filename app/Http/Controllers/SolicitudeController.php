@@ -203,8 +203,12 @@ class SolicitudeController extends Controller {
 
 		$category_candidates = ['Alcalde'];
 		$results = [];
+		$labels = [];
+		$values = [];
 
 		foreach ($nivels as $key => $nivel) {
+			$labels = [];
+			$values = [];
 
 			$nivelText = $nivelsText[$key];
 
@@ -232,7 +236,7 @@ class SolicitudeController extends Controller {
 					->get();
 	
 				foreach ($candidates as $candidate) {
-					$candidate_results = DB::table('votes')
+					$votes_for_this_candidate = DB::table('votes')
 						->where('category_candidate_id', 1)
 						->where('nivel', $nivel)
 						->where('candidate_id', $candidate->id)
@@ -241,17 +245,24 @@ class SolicitudeController extends Controller {
 					$percentage = 0;
 	
 					if($total_students_voted > 0) {
-						$percentage = ($candidate_results / $total_students_voted) * 100;
+						$percentage = ($votes_for_this_candidate / $total_students_voted) * 100;
 					}
-	
+
+					$labels[] = $candidate->firstname.' '.$candidate->lastname;
+					$values[] = $votes_for_this_candidate;
+
 					$candidates_results[] = [
 						'candidate' => $candidate->firstname.' '.$candidate->lastname,
-						'votes' => $candidate_results,
+						'votes' => $votes_for_this_candidate,
 						'percentage' => $percentage,
 					];
 	
 				}
 			}
+			$labels[] = 'Votaron';
+			$labels[] = 'No Votaron';
+			$values[] = $total_students_voted;
+			$values[] = $total_students - $total_students_voted;
 
 			$results[] = [
 				'nivel' => $nivel,
@@ -259,6 +270,8 @@ class SolicitudeController extends Controller {
 				'total_students' => $total_students,
 				'total_students_voted' => $total_students_voted,
 				'candidates_results' => $candidates_results,
+				'labels' => $labels,
+				'values' => $values,
 			];
 
 		}
