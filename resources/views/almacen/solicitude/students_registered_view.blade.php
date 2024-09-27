@@ -116,7 +116,8 @@
 					<th>Nombre</th>
 					<th>Apellido paterno</th>
 					<th>Apellido materno</th>
-					<th>Más información</th>
+					<!-- <th>Más información</th> -->
+					<th>Nivel</th>
 					<!-- <th>Estado</th> -->
 					<th>Opciones</th>
 				</thead>
@@ -129,9 +130,15 @@
 					<td>{{ $cat->name}}</td>
 					<td>{{ $cat->paternal_surname }}</td>
 					<td>{{ $cat->maternal_surname }}</td>
-					<td> <a href="" data-toggle="modal" data-target="#modal-entity-{{$cat->id}}"><i class="fa fa-eye mr-2"></i>Ver</a>
-					</td>
-
+					<!-- <td> <a href="" data-toggle="modal" data-target="#modal-entity-{{$cat->id}}"><i class="fa fa-eye mr-2"></i>Ver</a>
+					</td> -->
+					@if($cat->order_type_id == 1)
+						<td>Primaria</td>
+					@elseif($cat->order_type_id == 2)
+						<td>Secundaria</td>
+					@else
+						<td class="text-danger">Error</td>
+					@endif
 					<td>
 						@if($admin)
 						<a href="/admin/editar-registro-de-estudiante/{{ $cat->id }}" class="btn py-0 px-1" target="_blank" title="Editar" style="background-color: #87CEEB; border-color: #87CEEB;"><i class="fas fa-pencil-alt"></i></a>

@@ -15,6 +15,7 @@ class Candidate extends Model
         'firstname',
         'lastname',
         'position',
+        'nivel',
         'photo',
         'photo_path',
         'logo',

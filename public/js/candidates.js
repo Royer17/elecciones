@@ -4,6 +4,8 @@ const candidateUpdate = document.querySelector('#modal-candidate .update');
 
 candidateAdd.addEventListener('click', (e) => {
     e.preventDefault();
+    $(`.error-message`).empty();
+
     document.querySelector('#modal-candidate form').reset();
     $('#candidate-update').remove();
     $('#modal-candidate').modal('show');
@@ -97,6 +99,7 @@ function editCandidate(btn) {
             document.querySelector('#modal-candidate form').reset();
             document.querySelector('#modal-candidate input[name=id]').value = data.id;
             document.querySelector('#modal-candidate select[name=position]').value = data.position;
+            document.querySelector('#modal-candidate select[name=nivel]').value = data.nivel;
             document.querySelector('#modal-candidate input[name=cedula]').value = data.cedula;
             document.querySelector('#modal-candidate input[name=firstname]').value = data.firstname;
             document.querySelector('#modal-candidate input[name=lastname]').value = data.lastname;

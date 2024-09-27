@@ -28,6 +28,7 @@ use sisVentas\OrderOrder;
 use sisVentas\Payment;
 use sisVentas\Tupa;
 use sisVentas\User;
+use sisVentas\Http\Requests\CandidateRequest;
 
 class SolicitudeController extends Controller {
 	public function __construct() {
@@ -133,7 +134,7 @@ class SolicitudeController extends Controller {
 		return Candidate::find($id);
 	}
 
-	public function store_candidate(Request $request)
+	public function store_candidate(CandidateRequest $request)
 	{
 		$data = $request->except('photo', 'logo');
 
@@ -159,7 +160,7 @@ class SolicitudeController extends Controller {
 		return response()->json(['title' => 'Operación exitosa', 'message' => 'Candidato registrado correctamente'], 201);
 	}
 
-	public function update_candidate($id, Request $request)
+	public function update_candidate($id, CandidateRequest $request)
 	{
 		$data = $request->except('photo', 'logo');
 

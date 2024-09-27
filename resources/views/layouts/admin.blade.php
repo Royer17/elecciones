@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sistema de APAFA</title>
+    <title>Sistema de Votación</title>
     <!-- Tell the browser to be responsive to screen width -->
     {{-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> --}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,6 +104,7 @@
               </a>
             </li> -->
 
+            {{-- 
             <li id="liReports" class="treeview">
               <a href="#">
                 <i class="fa fa-folder"></i> <span>Reportes</span>
@@ -128,11 +129,11 @@
 
               </ul>
             </li>
-
+            --}}
 
             <li id="liGeneracionInterna" class="treeview">
               <a href="#">
-                <i class="fa fa-folder"></i> <span>Generación interna</span>
+                <i class="fa fa-folder"></i> <span>Votación</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
@@ -165,7 +166,7 @@
                     <i class="fa fa-users"></i> Candidatos
                   </a>
                 </li>
-
+                {{--
                 <li id="liRegisterFicha">
                   <a href="{{url('/admin/ficha-de-matricula')}}">
                     <i class="fa fa-building"></i> Ficha de matrícula
@@ -177,7 +178,7 @@
                     <i class="fa fa-building"></i> Lista de fichas
                   </a>
                 </li>
-
+                --}}
               </ul>
             </li>
 
@@ -219,11 +220,13 @@
                     <i class="fa fa-suitcase"></i> Profesiones
                   </a>
                 </li> -->
+                {{--
                 <li id="liOffice" class="">
                   <a href="{{url('/admin/oficinas')}}">
                     <i class="fa fa-fax"></i> Conceptos de pago
                   </a>
                 </li>
+                --}}
                 <!-- <li id="liDocumentType">
                   <a href="{{url('/admin/tipos-de-documento')}}">
                     <i class="fa fa-file"></i> Tipo de documento

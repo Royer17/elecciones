@@ -14,11 +14,18 @@
 		            	<select class="form-control" name="position">
 		            		<option value="">Seleccione</option>
 		            		<option value="Alcalde">Alcalde</option>
-		            		<option value="Regidor">Regidor</option>
-
 		            	</select>
 						<div class="text-danger error-message" id="candidate-position-error"></div>
+		            </div>
 
+		            <div class="form-group">
+		            	<label for="nivel">Nivel:</label>
+		            	<select class="form-control" name="nivel" id="nivel">
+		            		<option value="">Seleccione</option>
+		            		<option value="1">Primaria</option>
+		            		<option value="2">Secundaria</option>
+		            	</select>
+		            	<div class="text-danger error-message" id="candidate-nivel-error"></div>
 		            </div>
 
 		            <div class="form-group">
