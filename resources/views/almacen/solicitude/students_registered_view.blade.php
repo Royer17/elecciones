@@ -31,7 +31,7 @@
 							  </div>
 								{{Form::close()}}
 							</div>
-
+							{{-- 
 							<div class="col-sm-auto mb-3">
 								<label class="etiqueta">Estado:</label><br>
 								<div class="input-group">
@@ -74,16 +74,18 @@
 									<input type="text" class="form-control" name="dates" value="" autocomplete="off">
 							  </div>
 							</div>
-							
+							--}}
+							{{-- 
 							<div class="col-sm-auto mb-3">
 								<a href="/admin/estudiantes-registrados" class="btn btn-success">Reset</a>
 							</div>
-
+							
 							<div class="col-sm-auto mb-3">
 								<label class="etiqueta">Exportar en:</label><br>
 								<!-- <button class="btn btn-primary" id="solicitudes_report">Excel</button> -->
 								<a href="/admin/estudiantes-registrados-excel?inicio={{ $start_date }}&fin={{ $end_date }}&searchText={{ $searchText }}" class="btn btn-primary" target="_blank">Excel</a>
 							</div>
+							--}}
 
 							<div class="col-sm-auto mb-3">
 								<label class="etiqueta">Importar:</label><br>

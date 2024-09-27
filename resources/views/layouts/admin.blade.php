@@ -148,12 +148,13 @@
                     <i class="fa fa-bar-chart"></i> Resultados
                   </a>
                 </li>
-
+                {{-- 
                 <li id="liRegisterStudent">
                   <a href="{{url('/admin/registrar-estudiante')}}">
                     <i class="fa fa-building"></i> Registrar estudiante
                   </a>
                 </li>
+                --}}
 
                 <li id="liEnrollment">
                   <a href="{{url('/admin/estudiantes-registrados')}}">
