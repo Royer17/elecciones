@@ -45,7 +45,7 @@
                             </div>
                             --}}
 
-                            <div class="form-group row align-items-center">
+                            <div class="form-group row align-items-center d-none">
                                 <label for="cud_user_field" class="text_input col-lg-3 col-md-4 col-sm-6 col-12 mb-1">Ingresa tu código:</label>
                                 <input type="text" class="form-control form-control-sm col-lg-4 col-md-8 col-sm-6 col-12 text-uppercase mb-1" id="cud_user_field" placeholder="Ej. 20220000010" name="code" value="">
                             </div>
@@ -145,11 +145,11 @@
                 return;
             }
 
-            if (!$(`input[name="code"]`).val()) {
-                notice(`Advertencia`, `Escriba su código.`, `warning`);
-                unlockWindow();
-                return;
-            }
+            // if (!$(`input[name="code"]`).val()) {
+            //     notice(`Advertencia`, `Escriba su código.`, `warning`);
+            //     unlockWindow();
+            //     return;
+            // }
 
 
             // if (!grecaptcha.getResponse()) {
@@ -192,7 +192,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 			$("#barra_detalle").addClass("py-2 justify-content-end");
-			$("#barra_detalle").html("<div class='col-auto'><a href='/' class='btn btn-warning'><b>Regresar</b></a></div>");
+			$("#barra_detalle").html("<div class='col-auto'><a href='/votacion' class='btn btn-warning'><b>Inicio</b></a></div>");
 	});
 </script>
 @stop

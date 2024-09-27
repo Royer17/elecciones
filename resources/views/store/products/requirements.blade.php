@@ -66,8 +66,9 @@
             {{ csrf_field() }}
             <input type="hidden" name="index" value="{{ $order->id }}">
           </form>
-
-          <button type="button" class="btn btn-info btn-lg pull-right" id="send-vote-btn">Enviar</button>
+          @if($order->voted == false)
+            <button type="button" class="btn btn-info btn-lg pull-right" id="send-vote-btn">Enviar</button>
+          @endif
         </section>
       </div>
     </div>

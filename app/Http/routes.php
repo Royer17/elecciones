@@ -23,7 +23,11 @@ Route::group(['namespace' => 'Landing'], function () {
 	// VOTACION SYSTEM-------------------------------------------
 	Route::get('/votacion', 'HomeController@view_order');
 	//Route::post('/votacion', 'HomeController@validate_student');
-	Route::post('/cartilla', 'HomeController@view_requirements')->middleware('auth');
+	Route::post('/cartilla', 'HomeController@view_requirements');
+	Route::get('/cartilla', function () {
+		return redirect('/votacion');
+	});
+
 	Route::post('/send-vote', 'HomeController@send_vote');
 	//------------------------------------------------------------
 

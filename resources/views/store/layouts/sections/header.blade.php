@@ -4,7 +4,7 @@
         <div class="row align-items-center" id="barra_detalle">
             <nav class="navbar navbar-expand-lg col navbar-light bg-light">
 
-               <form class="form-inline">
+               <form class="" style="width: 100%;">
                     <button
                             class="navbar-toggler btn btn-outline-success my-2 my-sm-0"
                             type="button"
@@ -18,17 +18,16 @@
                     <i class="fa fa-bars fa-lg" style="color: #fff;"></i>
                     </button>
                     @if($search_button)
-                    <div class="collapse navbar-collapse  rounded float-right" id="navbarNavDropdown">
-
+                    <div class="d-flex justify-content-between align-items-center">
                       <div class="logo_head py-md-0 py-1">
                         <!-- <img src="{{ $company->logo }}"> -->
                         <img src="{{ $company->logo }}" alt="">
                         <p><b>SISTEMA<br>DE<br>VOTACIÓN</b></p>
                       </div>
 
-                        <ul class="navbar-nav py-md-0 py-1 d-none">
+                        <ul class="navbar-nav py-md-0 py-1">
                             <li class="nav-item active">
-                                <a class="btn btn-warning font-bold" href="/busqueda-documento">Consultar</a>
+                                <a class="btn btn-warning font-bold" href="/votacion">Inicio</a>
                             </li>
                         </ul>
                    </div>

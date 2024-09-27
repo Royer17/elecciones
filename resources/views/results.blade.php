@@ -3,16 +3,14 @@
 
     <h2>Resultados de los comicios estudiantiles</h2>
     <hr>
-    <section>
-      <p class="h3 text-center">Alcaldía</p>
 
+    @foreach ($results as $result)
+    <section>
+      <p class="h2 text-center">{{ $result['nivel_text'] }} - Alcaldía <span class="text-muted">({{ $result['total_students'] }} estudiantes)</span></p>
+      <p>Estudiantes que votaron: {{ $result['total_students_voted'] }}</p>
+      <p>Porcentaje: {{ ($result['total_students_voted'] / $result['total_students']) * 100 }}%</p>
       <div class="row m-3">
-        <div class="col-md-6 border">
-            <p>Total estudiantes: {{ $total_students }}</p>
-            <p>Estudiantes que votaron: {{ $total_students_voted }}</p>
-            <p>Porcentaje: {{ ($total_students_voted / $total_students) * 100 }}%</p>
-        </div>
-        @foreach ($candidates_results as $candidate)
+        @foreach ($result['candidates_results'] as $candidate)
         <div class="col-md-6 border">
             <p>Candidato: <b>{{ $candidate['candidate'] }}</b></p>
             <p>Votos: {{ $candidate['votes'] }}</p>
@@ -20,7 +18,15 @@
         </div>
         @endforeach
       </div>
+
+
+
     </section>
+
+    @endforeach
+
+    
+
     <hr>
 
     <div class="row">

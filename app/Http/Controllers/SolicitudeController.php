@@ -197,52 +197,73 @@ class SolicitudeController extends Controller {
 	public function show_view_results()
 	{
 		$company = Company::first();
-
-		$orders = DB::table('orders')
-			->where('deleted_at', null)
-			->get();
-
-		$total_students = count($orders);
-
-		$students_voted = DB::table('orders')
-			->where('deleted_at', null)
-			->where('voted', 1)
-			->get();
-
-		$total_students_voted = count($students_voted);
+		//Primaria, Secundaria
+		$nivels = [1, 2];
+		$nivelsText = ['Primaria', 'Secundaria'];
 
 		$category_candidates = ['Alcalde'];
+		$results = [];
 
-		$candidates_results = [];
-		
-		foreach ($category_candidates as $category) {
-			$candidates = DB::table('candidates')
-				->where('position', $category)
+		foreach ($nivels as $key => $nivel) {
+
+			$nivelText = $nivelsText[$key];
+
+			$orders = DB::table('orders')
+				->where('deleted_at', null)
+				->where('order_type_id', $nivel)
 				->get();
 
-			foreach ($candidates as $candidate) {
-				$candidate_results = DB::table('votes')
-					->where('category_candidate_id', 1)
-					->where('candidate_id', $candidate->id)
-					->count();
+			$total_students = count($orders);
 
-				$percentage = 0;
+			$students_voted = DB::table('orders')
+				->where('deleted_at', null)
+				->where('order_type_id', $nivel)
+				->where('voted', 1)
+				->get();
 
-				if($total_students_voted > 0) {
-					$percentage = ($candidate_results / $total_students_voted) * 100;
+			$total_students_voted = count($students_voted);
+
+			$candidates_results = [];
+
+			foreach ($category_candidates as $category) {
+				$candidates = DB::table('candidates')
+					->where('position', $category)
+					->where('nivel', $nivel)
+					->get();
+	
+				foreach ($candidates as $candidate) {
+					$candidate_results = DB::table('votes')
+						->where('category_candidate_id', 1)
+						->where('nivel', $nivel)
+						->where('candidate_id', $candidate->id)
+						->count();
+	
+					$percentage = 0;
+	
+					if($total_students_voted > 0) {
+						$percentage = ($candidate_results / $total_students_voted) * 100;
+					}
+	
+					$candidates_results[] = [
+						'candidate' => $candidate->firstname.' '.$candidate->lastname,
+						'votes' => $candidate_results,
+						'percentage' => $percentage,
+					];
+	
 				}
-
-				$candidates_results[] = [
-					'candidate' => $candidate->firstname.' '.$candidate->lastname,
-					'votes' => $candidate_results,
-					'percentage' => $percentage,
-				];
-
 			}
-		}
 
-		//$orders_voted = Order::where('voted', 1)->count();
-		return view('results', compact('company', 'total_students', 'total_students_voted', 'candidates_results'));
+			$results[] = [
+				'nivel' => $nivel,
+				'nivel_text' => $nivelText,
+				'total_students' => $total_students,
+				'total_students_voted' => $total_students_voted,
+				'candidates_results' => $candidates_results,
+			];
+
+		}
+	
+		return view('results', compact('company', 'results'));
 
 	}
 

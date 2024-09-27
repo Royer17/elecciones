@@ -1519,8 +1519,8 @@ class OrderController extends Controller {
 			$student = Entity::where('identity_document', $identity_document)
 				->first();
 
-			$order = Order::where('code', $code)
-				->where('entity_id', $student->id)
+			//$order = Order::where('code', $code)
+			$order = Order::where('entity_id', $student->id)
 				->first();
 
 			if ($order) {
