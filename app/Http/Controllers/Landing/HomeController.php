@@ -219,7 +219,6 @@ class HomeController extends Controller {
 		}
 
 		return response()->json(['success' => false]);
-
 	}
 
 	public function view_requirements(Request $request) {
@@ -234,7 +233,6 @@ class HomeController extends Controller {
 		$grade_arr_values = array(1 => "1ro", 2 => "2do", 3 => "3ro", 4 => "4to", 5 => "5to", 6 => "6to");
 
 		$nivel = $nivel_arr_values[$order->order_type_id];
-		$grade = $grade_arr_values[$order->tupa_id];
 
 		$identifier = $request->identificador;
 
@@ -260,7 +258,7 @@ class HomeController extends Controller {
 			->where('nivel', $order->order_type_id)
 			->get();
 
-		return view('store.products.requirements', compact('company', 'document_types', 'search_button', 'tupa', 'all_tupa', 'identifier', 'candidates', 'entity', 'order', 'nivel', 'grade'));
+		return view('store.products.requirements', compact('company', 'document_types', 'search_button', 'tupa', 'all_tupa', 'identifier', 'candidates', 'entity', 'order', 'nivel'));
 	}
 
 	public function send_vote(Request $request) {

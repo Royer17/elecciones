@@ -90,9 +90,9 @@
 							<div class="col-sm-auto mb-3">
 								<label class="etiqueta">Importar:</label><br>
 								<div class="input-group">
-								  <input type="file" class="form-control" id="file" disabled>
+								  <input type="file" class="form-control" id="file">
 								  <div class="input-group-append">
-								    <button type="button" id="student__import" class="btn btn-primary" disabled><i class="fa fa-arrow-up"></i></button>
+								    <button type="button" id="student__import" class="btn btn-primary"><i class="fa fa-arrow-up"></i></button>
 								  </div>
 								</div>
 
@@ -116,8 +116,7 @@
 					<th>Fecha de creación</th>
 					<th>DNI</th>
 					<th>Nombre</th>
-					<th>Apellido paterno</th>
-					<th>Apellido materno</th>
+					<th>Apellido</th>
 					<!-- <th>Más información</th> -->
 					<th>Nivel</th>
 					<!-- <th>Estado</th> -->
@@ -131,7 +130,6 @@
 					<td>{{ $cat->identity_document }}</td>
 					<td>{{ $cat->name}}</td>
 					<td>{{ $cat->paternal_surname }}</td>
-					<td>{{ $cat->maternal_surname }}</td>
 					<!-- <td> <a href="" data-toggle="modal" data-target="#modal-entity-{{$cat->id}}"><i class="fa fa-eye mr-2"></i>Ver</a>
 					</td> -->
 					@if($cat->order_type_id == 1)
@@ -142,15 +140,19 @@
 						<td class="text-danger">Error</td>
 					@endif
 					<td>
+						{{-- 
 						@if($admin)
 						<a href="/admin/editar-registro-de-estudiante/{{ $cat->id }}" class="btn py-0 px-1" target="_blank" title="Editar" style="background-color: #87CEEB; border-color: #87CEEB;"><i class="fas fa-pencil-alt"></i></a>
 
 						<a href="/admin/reporte-de-pagos/{{ $cat->id }}" class="btn py-0 px-1" target="_blank" title="Reporte de pago" style="background-color: #87CEEB; border-color: #87CEEB;"><i class="fas fa-print"></i></a>
 						@endif
+						--}}
                         <div class="dropdown export_matriculas">
                           <button type="button" class="btn btn_state dropdown-toggle" data-toggle="dropdown">Acción</button>
                           <div class="dropdown-menu">
+							{{-- 
                             <a class="dropdown-item" data-i="{{ $cat->id }}" data-index="2" data-action_text="Anular" href="javascript:void(0);" onclick="changeStatus(this)">Anular</a>
+							--}}
                             <a class="dropdown-item" data-i="{{ $cat->id }}" data-index="3" data-action_text="Retirar" href="javascript:void(0);" onclick="changeStatus(this)">Retirar</a>
                           </div>
                         </div>
@@ -471,57 +473,57 @@ function clear_data(data){
 
   $(`#student__import`).on('click', function(e){
     e.preventDefault();
+
+	if (!data_imports) {
+		notice("Advertencia", "No se han seleccionado datos para importar", `warning`);
+		return;
+	}
+
     lockWindow();
       let nivel = new Array();
-      let grade = new Array();
-      let section = new Array();
-      let identity_document_type = new Array();
+      //let grade = new Array();
+      //let section = new Array();
+      //let identity_document_type = new Array();
       let identity_document = new Array();
-      let paternal_surname = new Array();
-      let maternal_surname = new Array();
+      let surname = new Array();
+      //let maternal_surname = new Array();
       let name = new Array();
-      let gender = new Array();
-      let birthday = new Array();
-      let age = new Array();
+      //let gender = new Array();
+      //let birthday = new Array();
+      //let age = new Array();
 
       data_imports.forEach((value, index) => {
         
         splitted = value.split(`=?`);
-        nivel[index] = splitted[1];
-        grade[index] = splitted[2];
-        section[index] = splitted[3];
-        identity_document_type[index] = splitted[4];
-        identity_document[index] = splitted[5];
-        paternal_surname[index] = splitted[6];
-        maternal_surname[index] = splitted[7];
-        name[index] = splitted[8];
-        gender[index] = splitted[9];
-        birthday[index] = splitted[10];
-        age[index] = splitted[11];
+        identity_document[index] = splitted[1];
+        name[index] = splitted[2];
+		surname[index] = splitted[3];
+        nivel[index] = splitted[4];
+		// grade[index] = splitted[2];
+        // section[index] = splitted[3];
+        // identity_document_type[index] = splitted[4];
+        // paternal_surname[index] = splitted[6];
+        // maternal_surname[index] = splitted[7];
+        // gender[index] = splitted[9];
+        // birthday[index] = splitted[10];
+        // age[index] = splitted[11];
 
       });
 
-      axios.post(`/admin/students/import`, {
+      axios.post(`/admin/students/importv2`, {
         nivel,
-        grade,
-        section,
-        identity_document_type,
         identity_document,
-        paternal_surname,
-        maternal_surname,
+        surname,
         name,
-        gender,
-        birthday,
-        age
       })
       .then((response) => {
         unlockWindow();
-        toastNotice(response.data.message);
+		notice(response.data.title, response.data.message, `success`);
         location.reload();
       })
       .catch((error) => {
-      	//unlockWindow();
-      	console.log(error.response.data.message);
+      	unlockWindow();
+		notice(error.response.data.title, error.response.data.message, `warning`);
       });
   });
 

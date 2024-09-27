@@ -12,7 +12,7 @@
           <article>
             <h2 class="text-center text-uppercase font-bold">Alcaldes y regidores</h2>
             <h4 class="text-center text-uppercase">{{ $entity->paternal_surname }} {{ $entity->maternal_surname }}, {{ $entity->name }}</h4>
-            <h5 class="text-center text-uppercase">DNI: <span class="font-bold">{{ $entity->identity_document }}</span>, Grado: <span class="font-bold">{{ $nivel }} {{ $grade }} "{{ $order->subject }}"</span> </h5>    
+            <h5 class="text-center text-uppercase">DNI: <span class="font-bold">{{ $entity->identity_document }}</span>, Nivel: <span class="font-bold">{{ $nivel }}</span> </h5>    
           </article>
           
           <figure>
@@ -138,6 +138,9 @@
                     success: function(e){
                         unlockWindow();
                         notice(`${e.title}`, `${e.message}`, `success`);
+                        setTimeout(() => {
+                            window.location.href = '/votacion';
+                        }, 3000);
 
                     },
                     error:function(jqXHR, textStatus, errorThrown)

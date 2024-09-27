@@ -313,11 +313,97 @@ class OrderController extends Controller {
 	    // all good
 		} catch (\Exception $e) {
 		    DB::rollback();
+		    return response()->json(['title' => 'Error', 'message' => $e->getMessage()], 400);
+		    // something went wrong
+		}
+
+	}
+
+	public function import_studentsv2(Request $request)
+	{
+		DB::beginTransaction();
+
+		try {
+
+			$identity_documents = $request->identity_document;
+
+			$nivel_arr_values = array("PRIMARIA" => 1, "SECUNDARIA" => 2);
+			//$grade_arr_values = array("PRIMERO" => 1, "SEGUNDO" => 2, "TERCERO" => 3, "CUARTO" => 4, "QUINTO" => 5, "SEXTO" => 6);
+
+			$nivel = $request->nivel;
+			$identity_document = $request->identity_document;
+			$surname = $request->surname;
+			$name = $request->name;
+
+			foreach ($identity_documents as $key => $identity_document) {
+
+				if ($identity_document) {
+					#existe el sku -actualizar
+					$entity = Entity::whereIdentityDocument($identity_document)
+						->first();
+
+					if ($entity) {
+						#Filling!
+						$entity->name = $name[$key];
+						$entity->paternal_surname = $surname[$key];
+						$entity->maternal_surname = "";
+						$entity->save();
+
+					} else {
+						#sku no existe
+						#no exist el sku - nuevo
+							#Si existe , el product enviado es un hijo
+							$entity = new Entity();
+							$entity->identity_document = $identity_document;
+							$entity->name = $name[$key];
+							$entity->paternal_surname = $surname[$key];
+							$entity->maternal_surname = "";
+							$entity->type_document = 1;
+							$entity->sigla = 1;
+							$entity->birthday = NULL;
+							$entity->profession_id = 0;
+							$entity->office_id = 0;
+							$entity->status = 1;
+							$entity->save();
+
+							$new_order = new Order();
+							$new_order->internal_code = "###";
+							$new_order->internal_code_correlative = "###";
+							$new_order->code = rand(100000, 999999);
+
+							$user_id = Auth::user()->id;
+
+							$new_order->entity_id = $entity->id;
+							$new_order->user_id = Auth::user()->id;
+							$new_order->office_id_origen = 0;
+							$new_order->order_type_id = $nivel_arr_values[$nivel[$key]];
+							$new_order->tupa_id = 0;
+							$new_order->subject = "";
+							$new_order->office_id = 0;
+							$new_order->status = 1;
+							$new_order->notes = "";
+							$new_order->year = Carbon::now()->format('Y');
+							$new_order->save();
+
+					}
+
+				}
+
+			}
+
+
+	    	DB::commit();
+			return response()->json(['title' => 'Operación Exitosa', 'message' => 'Se ha importado correctamente a los estudiantes.'], 201);
+
+	    // all good
+		} catch (\Exception $e) {
+		    DB::rollback();
 		    return response()->json(['title' => 'Error', 'message' => $e->getMessage(), 'office_ids' => $request->office_ids], 400);
 		    // something went wrong
 		}
 
 	}
+
 
 	public function store_logged_solicitude(LoggedSolicitudeRequest $request)
 	{
@@ -1521,6 +1607,7 @@ class OrderController extends Controller {
 
 			//$order = Order::where('code', $code)
 			$order = Order::where('entity_id', $student->id)
+				->where('status', 1)
 				->first();
 
 			if ($order) {

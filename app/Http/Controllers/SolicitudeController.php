@@ -215,6 +215,7 @@ class SolicitudeController extends Controller {
 			$orders = DB::table('orders')
 				->where('deleted_at', null)
 				->where('order_type_id', $nivel)
+				->where('status', 1)
 				->get();
 
 			$total_students = count($orders);
@@ -222,6 +223,7 @@ class SolicitudeController extends Controller {
 			$students_voted = DB::table('orders')
 				->where('deleted_at', null)
 				->where('order_type_id', $nivel)
+				->where('status', 1)
 				->where('voted', 1)
 				->get();
 
@@ -2712,9 +2714,9 @@ public function enrollment_data_view(Request $request)
 	       			});
 				}
 
-				if ($request->status) {
-					$status_id = $orders_status_arr[$request->status];
-					$orders = $orders->where('orders.status', $status_id);
+				if (true) {
+					//$status_id = $orders_status_arr[$request->status];
+					$orders = $orders->where('orders.status', 1);
 				}
 
 			$orders = $orders->select(['orders.id', 'orders.subject as subject', 'entities.name', 'entities.paternal_surname', 'entities.maternal_surname', 'entities.identity_document', 'orders.status as status', 'orders.created_at', 'orders.internal_code', 'orders.tupa_id', 'orders.order_type_id', 'entities.cellphone', 'entities.email', 'entities.address', 'orders.code']);

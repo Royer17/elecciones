@@ -64,6 +64,8 @@ Route::group(['namespace' => 'Landing'], function () {
 	Route::post('/admin/payment', 'OrderController@store_payment');
 
 	Route::post('/admin/students/import', 'OrderController@import_students');
+	Route::post('/admin/students/importv2', 'OrderController@import_studentsv2');
+
 
 	Route::put('/logged-solicitude/{id}', 'OrderController@update_logged_solicitude');
 
