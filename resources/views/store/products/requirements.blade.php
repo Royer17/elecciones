@@ -66,6 +66,8 @@
             {{ csrf_field() }}
             <input type="hidden" name="index" value="{{ $order->id }}">
           </form>
+          <!-- Regresar btn -->
+          <!-- <a href="/votacion" class="btn btn-secondary btn-lg pull-right">Regresar</a>  -->
           @if($order->voted == false)
             <button type="button" class="btn btn-info btn-lg pull-right" id="send-vote-btn">Enviar</button>
           @endif

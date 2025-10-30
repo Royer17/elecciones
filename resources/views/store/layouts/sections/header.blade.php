@@ -27,7 +27,7 @@
 
                         <ul class="navbar-nav py-md-0 py-1">
                             <li class="nav-item active">
-                                <a class="btn btn-warning font-bold" href="/votacion">Inicio</a>
+                                <a class="btn btn-warning btn-lg font-bold" href="/votacion">Volver</a>
                             </li>
                         </ul>
                    </div>
