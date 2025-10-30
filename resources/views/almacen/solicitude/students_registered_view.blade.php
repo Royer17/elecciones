@@ -95,8 +95,11 @@
 								    <button type="button" id="student__import" class="btn btn-primary"><i class="fa fa-arrow-up"></i></button>
 								  </div>
 								</div>
-
 							</div>
+							<div class="col-sm-auto mb-3">
+								<a href="/plantilla_importar_estudiantes.xlsx" class="btn btn-secondary" target="_blank"><i class="fa fa-download"></i> Plantilla</a>
+							</div>
+
 
 						</div>
 					</div>
