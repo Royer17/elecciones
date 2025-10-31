@@ -1,19 +1,22 @@
-@extends ('layouts.admin')
-@section ('contenido')
+@extends('layouts.admin')
+@section('contenido')
 <h3 class="font-bold">Crear Alumno
-        <select id="enrollment-year" onchange="changeYearEnrollment(this);">
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-        </select>
+  <select id="enrollment-year" onchange="changeYearEnrollment(this);">
+    <option value="2025">2025</option>
+    <option value="2024">2024</option>
+    <option value="2023">2023</option>
+  </select>
 </h3>
-{!! Form::open(array('id' => 'internal-solicitude_form', 'role' => 'form', 'files' => true, 'enctype' => 'multipart/form-data')) !!}
+{!! Form::open(array('id' => 'internal-solicitude_form', 'role' => 'form', 'files' => true, 'enctype' =>
+'multipart/form-data')) !!}
 
 <div class="row">
   <input type="hidden" name="parent_office_id" value="{{ $current_office_id }}">
   <input type="hidden" name="year" value="{{ $year }}">
   <div class="col">
     <div class="card">
-      <div class="card-header text-white bg-dark"><h5>Datos del estudiante</h5>
+      <div class="card-header text-white bg-dark">
+        <h5>Datos del estudiante</h5>
       </div>
       <div class="card-body bg-light">
         <div class="form-group mb-2 d-none">
@@ -24,7 +27,8 @@
           <div class="col-sm-6">
             <div class="form-group mb-1">
               <label class="etiqueta">Fecha:</label>
-              <input type="text" name="date" class="form-control date-datepicker" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ $today_date }}" disabled>
+              <input type="text" name="date" class="form-control date-datepicker" autocomplete="off"
+                placeholder="dd/mm/yyyy" value="{{ $today_date }}" disabled>
             </div>
           </div>
           <div class="col-sm-6">
@@ -81,7 +85,7 @@
           <label class="etiqueta">Año:</label>
           <select class="form-control select_2" name="tupa_id">
             <option value="">Seleccione</option>
-<!--             <option value="1">PRIMERO</option>
+            <!--             <option value="1">PRIMERO</option>
             <option value="2">SEGUNDO</option>
             <option value="3">TECERO</option>
             <option value="4">CUARTO</option>
@@ -94,7 +98,7 @@
           <label class="etiqueta">Sección:</label>
           <select class="form-control select_2" name="subject">
             <option value="">Seleccione</option>
-<!--             <option value="A">A</option>
+            <!--             <option value="A">A</option>
             <option value="B">B</option> -->
           </select>
           <div class="text-danger error-message" id="document-subject-error"></div>
@@ -102,7 +106,9 @@
 
       </div>
 
-      <div class="card-header"><h6>Datos del apoderado</h6></div>
+      <div class="card-header">
+        <h6>Datos del apoderado</h6>
+      </div>
       <div class="card-body bg-light">
         <div class="form-group mb-2">
           <label class="etiqueta">DNI: (*)</label>
@@ -133,9 +139,11 @@
   </div>
   <div class="col-md-6 d-none">
     <div class="card">
-      <div class="card-header text-white bg-dark"><h5>Conceptos de pago {{ $year }}</h5></div>
+      <div class="card-header text-white bg-dark">
+        <h5>Conceptos de pago {{ $year }}</h5>
+      </div>
       <div class="card-body bg-light">
-  
+
         <div class="form-group mb-1">
           <table class="table">
             <thead>
@@ -147,22 +155,22 @@
             </thead>
             <tbody>
               @foreach($payment_concepts as $fm => $concept)
-              <tr>
-                <th scope="row">
+                <tr>
+                  <th scope="row">
                     <input type="hidden" name="office_ids[]" value="{{ $concept->id }}">
                     <input type="hidden" name="payed[]" value="1">
                     <input type="checkbox" onclick="changeCheckboxValue(this);" checked>
-                </th>
-                <td><b>{{ $concept->name }}</b></td>
-                <td><input type="number" name="amount[]" value="{{ $concept->sigla }}"></td>
-              </tr>
+                  </th>
+                  <td><b>{{ $concept->name }}</b></td>
+                  <td><input type="number" name="amount[]" value="{{ $concept->sigla }}"></td>
+                </tr>
               @endforeach
             </tbody>
           </table>
 
         </div>
 
-      
+
       </div>
     </div>
 
@@ -172,93 +180,99 @@
 {!! Form::close() !!}
 
 
-<div class="text-center py-3"><button type="button" class="btn btn-success font-bold" id="send-document">ENVIAR</button></div>
+<div class="text-center py-3"><button type="button" class="btn btn-success font-bold" id="send-document">ENVIAR</button>
+</div>
 
 
-@push ('scripts')
-<script>
-  $('#liGeneracionInterna').addClass("treeview active");
-  $('#liRegisterStudent').addClass("active");
+@push('scripts')
+  <script>
+    $('#liGeneracionInterna').addClass("treeview active");
+    $('#liRegisterStudent').addClass("active");
 
-  $('select[name="offices"]').select2();
-  $('select[name="offices_id"]').select2();
+    $('select[name="offices"]').select2();
+    $('select[name="offices_id"]').select2();
 
 
-    $(`input[name="identity_document_parent"]`).on('keyup', function(e){
-        e.preventDefault();
+    $(`input[name="identity_document_parent"]`).on('keyup', function (e) {
+      e.preventDefault();
 
-        if (e.target.value.length != 8) {
-          return;
-        }
+      if (e.target.value.length != 8) {
+        return;
+      }
 
-        const identity_document_parent = e.target.value;
+      const identity_document_parent = e.target.value;
 
-        document.querySelector(`input[name="name_parent"]`).value = "";
-        document.querySelector(`input[name="paternal_surname_parent"]`).value = "";
-        document.querySelector(`input[name="maternal_surname_parent"]`).value = "";
-        // document.querySelector(`input[name="cellphone"]`).value = "";
-        // document.querySelector(`input[name="email"]`).value = "";
-        // document.querySelector(`#razon_social_field`).value = "";
+      document.querySelector(`input[name="name_parent"]`).value = "";
+      document.querySelector(`input[name="paternal_surname_parent"]`).value = "";
+      document.querySelector(`input[name="maternal_surname_parent"]`).value = "";
+      // document.querySelector(`input[name="cellphone"]`).value = "";
+      // document.querySelector(`input[name="email"]`).value = "";
+      // document.querySelector(`#razon_social_field`).value = "";
 
-            // if (!document.querySelector(`#dni_field`).value || document.querySelector(`#dni_field`).value.length != 8) {
-            //     //alert(`Especifique un DNI válido.`);
-            //     Swal.fire(
-            //       '',
-            //       'Especifíque un DNI válido.',
-            //       'warning'
-            //     )
+      // if (!document.querySelector(`#dni_field`).value || document.querySelector(`#dni_field`).value.length != 8) {
+      //     //alert(`Especifique un DNI válido.`);
+      //     Swal.fire(
+      //       '',
+      //       'Especifíque un DNI válido.',
+      //       'warning'
+      //     )
 
-            //     return;
-            // }
+      //     return;
+      // }
 
-            lockWindow();
+      lockWindow();
 
-            axios.get(`/admin/parent/${e.target.value}/search`)
+      axios.get(`/admin/parent/${e.target.value}/search`)
+        .then((response) => {
+          if (response.data.success) {
+            document.querySelector(`input[name="name_parent"]`).value = response.data.parent.name;
+            document.querySelector(`input[name="paternal_surname_parent"]`).value = response.data.parent.sigla;
+            document.querySelector(`input[name="maternal_surname_parent"]`).value = response.data.parent
+              .maternal_surname;
+            // document.querySelector(`input[name="cellphone"]`).value = response.data.entity.cellphone;
+            // document.querySelector(`input[name="email"]`).value = response.data.entity.email;
+            // document.querySelector(`input[name="address"]`).value = response.data.entity.address;
+            unlockWindow();
+            return;
+          }
+
+          axios.get(
+              `https://dniruc.apisperu.com/api/v1/dni/${identity_document_parent}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJveWVyLmpha0BnbWFpbC5jb20ifQ.OblQV2df3iMDJbRHx3o_342AKsP1Xp3vNoql3WK6jV4`, {
+                timeout: 5000
+              })
             .then((response) => {
-                if (response.data.success) {
-                    document.querySelector(`input[name="name_parent"]`).value = response.data.parent.name;
-                    document.querySelector(`input[name="paternal_surname_parent"]`).value = response.data.parent.sigla;
-                    document.querySelector(`input[name="maternal_surname_parent"]`).value = response.data.parent.maternal_surname;
-                    // document.querySelector(`input[name="cellphone"]`).value = response.data.entity.cellphone;
-                    // document.querySelector(`input[name="email"]`).value = response.data.entity.email;
-                    // document.querySelector(`input[name="address"]`).value = response.data.entity.address;
-                    unlockWindow();
-                    return;
-                }
-
-                axios.get(`https://dniruc.apisperu.com/api/v1/dni/${identity_document_parent}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJveWVyLmpha0BnbWFpbC5jb20ifQ.OblQV2df3iMDJbRHx3o_342AKsP1Xp3vNoql3WK6jV4`, {timeout: 5000})
-                .then((response) => {
-                    document.querySelector(`input[name="name_parent"]`).value = response.data.nombres;
-                    document.querySelector(`input[name="paternal_surname_parent"]`).value = response.data.apellidoPaterno;
-                    document.querySelector(`input[name="maternal_surname_parent"]`).value = response.data.apellidoMaterno;
-                    unlockWindow();
-                })
-                .catch((err) => {
-                    unlockWindow();
-                    // Swal.fire(
-                    //   '',
-                    //   `No se ha encontrado el DNI.`,
-                    //   'warning'
-                    // )
-                    return;
-                });
-                //use the api
+              document.querySelector(`input[name="name_parent"]`).value = response.data.nombres;
+              document.querySelector(`input[name="paternal_surname_parent"]`).value = response.data
+                .apellidoPaterno;
+              document.querySelector(`input[name="maternal_surname_parent"]`).value = response.data
+                .apellidoMaterno;
+              unlockWindow();
             })
             .catch((err) => {
-                // unlockWindow();
-                // Swal.fire(
-                //   '',
-                //   `Ha ocurrido un error.`,
-                //   'warning'
-                // )
-                return;
+              unlockWindow();
+              // Swal.fire(
+              //   '',
+              //   `No se ha encontrado el DNI.`,
+              //   'warning'
+              // )
+              return;
             });
+          //use the api
+        })
+        .catch((err) => {
+          // unlockWindow();
+          // Swal.fire(
+          //   '',
+          //   `Ha ocurrido un error.`,
+          //   'warning'
+          // )
+          return;
+        });
 
 
     });
-
-</script>
-<script type="text/javascript" src="/js/logged_solicitudes.js"></script>
+  </script>
+  <script type="text/javascript" src="/js/logged_solicitudes.js"></script>
 @endpush
 @endsection
 @section('custom-css')
