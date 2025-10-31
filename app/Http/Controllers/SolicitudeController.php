@@ -41,7 +41,7 @@ class SolicitudeController extends Controller {
 
 			$candidates = Candidate::latest();
 
-			return view('almacen.solicitude.candidates', ["candidates" => $candidates->paginate(10), "searchText" => "", 'offices' => [], 'document_statuses' => [], 'document_status' => "", 'admin' => true, 'start_date' => "", 'end_date' => "", 'status_searched' => ""]);
+			return view('almacen.solicitude.candidates_example2', ["candidates" => $candidates->paginate(10), "searchText" => "", 'offices' => [], 'document_statuses' => [], 'document_status' => "", 'admin' => true, 'start_date' => "", 'end_date' => "", 'status_searched' => ""]);
 
 
 			// $start_date = "";
@@ -120,11 +120,11 @@ class SolicitudeController extends Controller {
 
 			if ($user->role_id == 2) {
 				// admin
-				return view('almacen.solicitude.candidates', ["orders" => $orders->paginate(10), "searchText" => $text, 'offices' => $offices, 'document_statuses' => $document_statuses, 'document_status' => $document_status, 'admin' => true, 'start_date' => $start_date ? $start_date->format('d/m/Y') : "", 'end_date' => $end_date ? $end_date->format('d/m/Y') : "", 'status_searched' => $status_searched]);
+				return view('almacen.solicitude.candidates_example2', ["orders" => $orders->paginate(10), "searchText" => $text, 'offices' => $offices, 'document_statuses' => $document_statuses, 'document_status' => $document_status, 'admin' => true, 'start_date' => $start_date ? $start_date->format('d/m/Y') : "", 'end_date' => $end_date ? $end_date->format('d/m/Y') : "", 'status_searched' => $status_searched]);
 
 			}
 
-			return view('almacen.solicitude.candidates', ["orders" => $orders->paginate(10), "searchText" => $text, 'offices' => $offices, 'document_statuses' => $document_statuses, 'document_status' => $document_status, 'admin' => false, 'start_date' => $start_date ? $start_date->format('d/m/Y') : "", 'end_date' => $end_date ? $end_date->format('d/m/Y') : "", 'status_searched' => $status_searched]);
+			return view('almacen.solicitude.candidates_example2', ["orders" => $orders->paginate(10), "searchText" => $text, 'offices' => $offices, 'document_statuses' => $document_statuses, 'document_status' => $document_status, 'admin' => false, 'start_date' => $start_date ? $start_date->format('d/m/Y') : "", 'end_date' => $end_date ? $end_date->format('d/m/Y') : "", 'status_searched' => $status_searched]);
 		}
 
 	}
