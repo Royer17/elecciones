@@ -236,78 +236,7 @@
 
 		});
 
-		let startDate = document.querySelector('.daterangepicker-area input[name="start_date"]').value;
-		let endDate = document.querySelector('.daterangepicker-area input[name="end_date"]').value;
-
-		if (startDate) {
-			$('input[name="dates"]').val(startDate + ' - ' + endDate);
-		}
-
-		$('input[name="dates"]').daterangepicker({
-			locale: {
-				format: 'DD/MM/YYYY',
-				"applyLabel": "Aplicar",
-				"cancelLabel": "Cancelar",
-				"fromLabel": "De",
-				"toLabel": "Hasta",
-				"customRangeLabel": "Personalizado",
-				"daysOfWeek": [
-					"Do",
-					"Lu",
-					"Ma",
-					"Mi",
-					"Ju",
-					"Vi",
-					"Sa"
-				],
-				"monthNames": [
-					"Enero",
-					"Febrero",
-					"Marzo",
-					"Abril",
-					"Mayo",
-					"Junio",
-					"Julio",
-					"Agusto",
-					"Septiembre",
-					"Octubre",
-					"Noviembre",
-					"Diciembre"
-				],
-
-			},
-			autoUpdateInput: false,
-			// startDate: document.querySelector('.daterangepicker-area input[name="start_date"]').value,
-			// endDate: document.querySelector('.daterangepicker-area input[name="end_date"]').value,
-			//    maxSpan: {
-			//    	"months": 6
-			// },
-			dateLimit: {
-				'months': 6,
-				'days': -1
-			}
-
-		}, function (start, end) {
-			//startDate = start.format('YYYY-MM-DD');
-			startDate = start.format('DD/MM/YYYY');
-			//endDate = end.format('YYYY-MM-DD');
-			endDate = end.format('DD/MM/YYYY');
-
-			//location.replace(`/admin/registrados?inicio=${startDate}&fin=${endDate}`);
-		});
-
-		$('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
-			$(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-			location.replace(`/admin/estudiantes-registrados?inicio=${startDate}&fin=${endDate}`);
-		});
-
-
 		$('#modal-delete- select[name="offices"]').select2();
-
-		// document.querySelector('#solicitudes_report')
-		// 	.addEventListener('click', () => {
-		// 		window.open(`/admin/solicitudes-report?inicio=${startDate}&fin=${endDate}&searchText=${document.querySelector('input[name="searchText"]').value}`);
-		// 	});
 	</script>
 	<script type="text/javascript" src="{{ URL::asset('plugins/jszip/jszip.js') }}"></script>
 	<script type="text/javascript" src="{{ URL::asset('plugins/xlsx/xlsx.js') }}"></script>
