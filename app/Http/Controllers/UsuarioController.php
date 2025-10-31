@@ -38,7 +38,7 @@ class UsuarioController extends Controller {
 				}
 
 				$usuarios = $usuarios->paginate(10);
-			return view('seguridad.usuario.index', ["usuarios" => $usuarios, "searchText" => $text]);
+			return view('seguridad.usuario.index_example3', ["usuarios" => $usuarios, "searchText" => $text]);
 		}
 	}
 
