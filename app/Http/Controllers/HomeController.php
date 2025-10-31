@@ -39,7 +39,7 @@ class HomeController extends Controller {
 
 	public function showCompany() {
 		$company = Company::first();
-		return view('company', compact('company'));
+		return view('company_improved_example3', compact('company'));
 	}
 
 	public function updateCompany(Request $request) {
