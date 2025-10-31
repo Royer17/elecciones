@@ -680,7 +680,9 @@ function deleteRecord(btn){
 		})
 }
 
-document.querySelector('#filter_1 select[name="status"]')
-	.addEventListener('change', (e) => {
-		location.replace(`/admin/estudiantes-registrados?searchText=${document.querySelector('#filter_1 input[name="searchText"]').value}&status=${e.target.value}`);
-	})
+if(document.querySelector('#filter_1 select[name="status"]')) {
+	document.querySelector('#filter_1 select[name="status"]')
+		.addEventListener('change', (e) => {
+			location.replace(`/admin/estudiantes-registrados?searchText=${document.querySelector('#filter_1 input[name="searchText"]').value}&status=${e.target.value}`);
+		});
+}

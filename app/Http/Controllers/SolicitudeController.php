@@ -2731,11 +2731,11 @@ public function enrollment_data_view(Request $request)
 
 			if ($user->role_id == 2) {
 				// admin
-				return view('almacen.solicitude.students_registered_view', ["orders" => $orders->paginate(10), "searchText" => $text, 'offices' => $offices, 'document_statuses' => $document_statuses, 'document_status' => $document_status, 'admin' => true, 'start_date' => $start_date ? $start_date->format('d/m/Y') : "", 'end_date' => $end_date ? $end_date->format('d/m/Y') : "", 'status_searched' => $status_searched]);
+				return view('almacen.solicitude.students_registered_view_example1', ["orders" => $orders->paginate(10), "searchText" => $text, 'offices' => $offices, 'document_statuses' => $document_statuses, 'document_status' => $document_status, 'admin' => true, 'start_date' => $start_date ? $start_date->format('d/m/Y') : "", 'end_date' => $end_date ? $end_date->format('d/m/Y') : "", 'status_searched' => $status_searched]);
 
 			}
 
-			return view('almacen.solicitude.students_registered_view', ["orders" => $orders->paginate(10), "searchText" => $text, 'offices' => $offices, 'document_statuses' => $document_statuses, 'document_status' => $document_status, 'admin' => false, 'start_date' => $start_date ? $start_date->format('d/m/Y') : "", 'end_date' => $end_date ? $end_date->format('d/m/Y') : "", 'status_searched' => $status_searched]);
+			return view('almacen.solicitude.students_registered_view_example1', ["orders" => $orders->paginate(10), "searchText" => $text, 'offices' => $offices, 'document_statuses' => $document_statuses, 'document_status' => $document_status, 'admin' => false, 'start_date' => $start_date ? $start_date->format('d/m/Y') : "", 'end_date' => $end_date ? $end_date->format('d/m/Y') : "", 'status_searched' => $status_searched]);
 		}
 	}
 
