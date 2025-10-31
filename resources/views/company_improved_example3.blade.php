@@ -9,6 +9,7 @@
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href=""><i class="fa fa-home"></i> Inicio</a></li>
+                    <li>&nbsp;>&nbsp;</li>
                     <li class="active">Datos de la Institución</li>
                 </ol>
             </div>
@@ -157,13 +158,15 @@
                         <div class="box-body text-center">
                             <button class="btn btn-primary btn-lg" type="submit" title="Guardar todos los cambios">
                                 <i class="fa fa-save"></i> Guardar Configuración
-                        </button>
-                        <button class="btn btn-default btn-lg" type="reset" title="Restablecer todos los campos">
-                            <i class="fa fa-undo"></i> Limpiar
-                        </button>
-                        <a href="" class="btn btn-danger btn-lg" title="Cancelar y volver al inicio">
-                            <i class="fa fa-times"></i> Cancelar
-                        </a>
+                            </button>
+                            {{--
+                            <button class="btn btn-default btn-lg" type="reset" title="Restablecer todos los campos">
+                                <i class="fa fa-undo"></i> Limpiar
+                            </button>
+                            <a href="" class="btn btn-danger btn-lg" title="Cancelar y volver al inicio">
+                                <i class="fa fa-times"></i> Cancelar
+                            </a>
+                            --}}
                         </div>
                     </div>
                 </div>

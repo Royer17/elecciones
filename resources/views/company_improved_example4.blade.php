@@ -170,7 +170,7 @@
                     <button class="btn btn-default btn-lg" type="reset" id="resetBtn">
                             <i class="fa fa-refresh"></i> Limpiar
                     </button>
-                    <a href="{{route('home')}}" class="btn btn-danger btn-lg" id="cancelBtn">
+                    <a href="" class="btn btn-danger btn-lg" id="cancelBtn">
                             <i class="fa fa-times"></i> Cancelar
                     </a>
                 </div>
