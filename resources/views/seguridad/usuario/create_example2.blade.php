@@ -8,7 +8,7 @@
                 <i class="fa fa-user-plus"></i> Creación de Nuevo Usuario
         </h1>
         <ol class="breadcrumb">
-            <li><a href=""><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="{{route('home')}}"><i class="fa fa-home"></i> Inicio</a></li>
             <li><a href="/seguridad/usuario"><i class="fa fa-users"></i> Listado de Usuarios</a></li>
             <li class="active">Nuevo Registro</h1>
         </ol>

@@ -8,7 +8,7 @@
                 <i class="fa fa-user-cog"></i> Panel de Edición de Usuario
     </h1>
     <ol class="breadcrumb">
-        <li><a href=""><i class="fa fa-home"></i> Inicio</a></li>
+        <li><a href="{{route('home')}}"><i class="fa fa-home"></i> Inicio</a></li>
         <li><a href="/seguridad/usuario"><i class="fa fa-users"></i> Listado</a></li>
         <li class="active">Modificar Datos de: {{ $usuario->name}}</h1>
     </ol>
