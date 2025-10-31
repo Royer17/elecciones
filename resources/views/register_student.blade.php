@@ -180,7 +180,8 @@
 {!! Form::close() !!}
 
 
-<div class="text-center py-3"><button type="button" class="btn btn-success font-bold" id="send-document">ENVIAR</button>
+<div class="text-center py-3"><button type="button" class="btn btn-success btn-lg font-bold"
+    id="send-document">ENVIAR</button>
 </div>
 
 
