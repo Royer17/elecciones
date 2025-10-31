@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Sistema de APAFA</title>
+    <title>Sistema de ELECCIONES - I.E.</title>
 
     <!-- Fonts -->
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
     <style>
@@ -29,15 +30,26 @@
             margin-right: 6px;
         }
 
-        .d-none {display: none;}
-        .navbar-brand {height: auto;}
-        .navbar-default{background: linear-gradient( to right, #2980b9, #3498db);}
+        .d-none {
+            display: none;
+        }
+
+        .navbar-brand {
+            height: auto;
+        }
+
+        .navbar-default {
+            background: linear-gradient(to right, #2980b9, #3498db);
+        }
+
         .navbar-default .navbar-brand,
-        .navbar-default .navbar-brand:hover {color: #fff;}
+        .navbar-default .navbar-brand:hover {
+            color: #fff;
+        }
 
         .title_login {
-          font-weight: 700;
-          text-transform: uppercase;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         /* Login Form Styling */
@@ -159,24 +171,25 @@
             margin-bottom: 20px;
         }
 
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 10px;
-            }
-            
-            .login-body {
-                padding: 20px;
-            }
+        <blade media|%20(max-width%3A%20480px)%20%7B>.login-container {
+            padding: 10px;
+        }
+
+        .login-body {
+            padding: 20px;
+        }
         }
     </style>
 </head>
+
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed d-none" data-toggle="collapse" data-target="#app-navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed d-none" data-toggle="collapse"
+                    data-target="#app-navbar-collapse">
                     <span class="sr-only">Toggle Navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -198,16 +211,18 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right d-none">
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
+                    @if(Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cerrar Sesión</a></li>
+                                <li><a href="{{ url('/logout') }}"><i
+                                            class="fa fa-btn fa-sign-out"></i>Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     @endif
@@ -226,4 +241,5 @@
 
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
+
 </html>
