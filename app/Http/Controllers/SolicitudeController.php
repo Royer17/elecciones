@@ -278,7 +278,7 @@ class SolicitudeController extends Controller {
 
 		}
 	
-		return view('results', compact('company', 'results'));
+		return view('results_example2', compact('company', 'results'));
 
 	}
 
