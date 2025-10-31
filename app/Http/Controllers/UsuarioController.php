@@ -38,7 +38,7 @@ class UsuarioController extends Controller {
 				}
 
 				$usuarios = $usuarios->paginate(10);
-			return view('seguridad.usuario.index_example3', ["usuarios" => $usuarios, "searchText" => $text]);
+			return view('seguridad.usuario.index_example2', ["usuarios" => $usuarios, "searchText" => $text]);
 		}
 	}
 
@@ -47,7 +47,7 @@ class UsuarioController extends Controller {
 			->where('status', 1)
 			->get();
 
-		return view("seguridad.usuario.create", compact('entities'));
+		return view("seguridad.usuario.create_example1", compact('entities'));
 	}
 	public function store(UsuarioFormRequest $request) {
 		$usuario = new User;
@@ -69,7 +69,7 @@ class UsuarioController extends Controller {
 		$entities = Entity::whereType(2)
 			->get();
 
-		return view("seguridad.usuario.edit", ["usuario" => User::findOrFail($id), "entities" => $entities]);
+		return view("seguridad.usuario.edit_example1", ["usuario" => User::findOrFail($id), "entities" => $entities]);
 	}
 	public function update(UsuarioFormUpdateRequest $request, $id) {
 
